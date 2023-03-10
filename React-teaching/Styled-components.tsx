@@ -39,5 +39,31 @@ import { ThemeProvider } from "styled-components"
 //Exemplo
 
 <ThemeProvider theme={defaultTheme}>
-    <button />
+    <App />
 </ThemeProvider>
+
+
+***Global Style***
+
+//Utilização
+import { createGlobalStyle } from 'styled-components'
+
+export const GlobalStyle = createGlobalStyle`
+    * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+    }
+`
+
+//Na página principal
+import { GlobalStyle } from './Styles/global'
+
+export function App() {
+  return (
+    <ThemeProvider theme={defaultTheme}>
+      App
+      <GlobalStyle />
+    </ThemeProvider>
+  )
+}

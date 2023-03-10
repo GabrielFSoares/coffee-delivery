@@ -34,7 +34,8 @@ npm run lint
 
 ***Corrigir ao salvar***
 
-//Ir até sttings.json
+//Ctrl+Shift+P
+//Ir até settings.json
 //Acrescentar linha:
 
 "editor.codeActionsOnSave": {"source.fixAll.eslint": true}

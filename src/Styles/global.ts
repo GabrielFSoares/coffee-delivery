@@ -8,7 +8,7 @@ export const GlobalStyle = createGlobalStyle`
 	}
 	:focus {
 		outline: 0;
-		box-shadow: 0 0 0 ${(props) => props.theme['yellow-dark']}
+		box-shadow: 0 0 0 ${(props) => props.theme['yellow-dark']};
 	}
 	body {
 		background-color: ${(props) => props.theme.background};
@@ -19,5 +19,13 @@ export const GlobalStyle = createGlobalStyle`
 		font-family: 'Roboto', sans-serif;
 		font-weight: 400;
 		font-size: 1rem;
+	}
+	h1 {
+		font-family: 'Baloo 2', sans-serif;
+		font-weight: 800;
+		color: ${(props) => props.theme['base-title']};
+	}
+	p {
+		color: ${(props) => props.theme['base-subtitle']};
 	}
 `

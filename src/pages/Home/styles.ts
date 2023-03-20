@@ -12,7 +12,7 @@ export const HomeContainer = styled.div`
     font-size: 3rem;
   }
 
-  #text-intro p {
+  p {
     margin-top: 1rem;
     margin-bottom: 4.125rem;
     font-size: 1.25rem;
@@ -40,5 +40,21 @@ export const InfoContainer = styled.div`
 
     background-color: ${(prpos) => prpos.theme['yellow-dark']};
     color: ${(props) => props.theme.white};
+  }
+
+  #item-intro-1 {
+    background-color: ${(prpos) => prpos.theme['yellow-dark']};
+  }
+
+  #item-intro-2 {
+    background-color: ${(prpos) => prpos.theme['base-text']};
+  }
+
+  #item-intro-3 {
+    background-color: ${(prpos) => prpos.theme.yellow};
+  }
+
+  #item-intro-4 {
+    background-color: ${(prpos) => prpos.theme.purple};
   }
 `

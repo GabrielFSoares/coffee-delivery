@@ -5,10 +5,29 @@ export const CoffeeListContainer = styled.div`
   padding-top: 2rem;
 `
 
+export const CoffeeListItems = styled.div`
+  display: grid;
+  justify-content: space-between;
+  gap: 2.5rem 2rem;
+
+  @media screen and (max-width: 1199px) {
+    grid-template-columns: auto auto;
+  }
+
+  @media screen and (max-width: 1439px) and (min-width: 1200px) {
+    grid-template-columns: auto auto auto;
+  }
+
+  @media screen and (min-width: 1440px) {
+    grid-template-columns: auto auto auto auto;
+  }
+`
+
 export const CoffeeListHeader = styled.header`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-bottom: 3.375rem;
 
   h1 {
     font-size: 2rem;
@@ -37,5 +56,42 @@ export const CoffeeListHeader = styled.header`
         color: ${(props) => props.theme.white};
       }
     }
+  }
+`
+
+export const CoffeeItemContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  width: 16rem;
+  height: 19.375rem;
+
+  border-radius: 6px 36px 6px 36px;
+
+  background-color: ${(props) => props.theme['base-card']};
+
+  img {
+    position: relative;
+    top: -20px;
+    width: 7.5rem;
+    height: 7.5rem;
+  }
+
+  span {
+    font-size: 0.625rem;
+  }
+
+  h1 {
+    font-size: 1.25rem;
+    margin-top: 1rem;
+    color: ${(props) => props.theme['base-subtitle']};
+  }
+
+  p {
+    font-size: 0.875rem;
+    text-align: center;
+    margin: 0.5rem 1.25rem 2.0625rem 1.25rem;
+    color: ${(props) => props.theme['base-label']};
   }
 `

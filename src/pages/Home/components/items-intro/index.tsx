@@ -4,10 +4,14 @@ import { itemColorVariant, ItemsIntroContainer } from './style'
 interface itemsIntroProps {
   icon: 'ShoppingCart' | 'Package' | 'Timer' | 'Coffee'
   text: string
-  color?: itemColorVariant
+  variant?: itemColorVariant
 }
 
-export function ItemsIntro({ icon, text, color = 'yellow' }: itemsIntroProps) {
+export function ItemsIntro({
+  icon,
+  text,
+  variant = 'yellow',
+}: itemsIntroProps) {
   function iconChange(icon: string) {
     if (icon === 'ShoppingCart') {
       return <ShoppingCart size={16} weight="fill" />
@@ -27,7 +31,7 @@ export function ItemsIntro({ icon, text, color = 'yellow' }: itemsIntroProps) {
   }
 
   return (
-    <ItemsIntroContainer variant={color}>
+    <ItemsIntroContainer variant={variant}>
       <span>{iconChange(icon)}</span>
       {text}
     </ItemsIntroContainer>

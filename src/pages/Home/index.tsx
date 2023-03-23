@@ -16,10 +16,26 @@ export function Home() {
           </p>
 
           <InfoContainer>
-            <ItemsIntro icon="ShoppingCart" text="Compra simples e segura" />
-            <ItemsIntro icon="Package" text="Embalagem mantém o café intacto" />
-            <ItemsIntro icon="Timer" text="Entrega rápida e rastreada" />
-            <ItemsIntro icon="Coffee" text="O café chega fresquinho até você" />
+            <ItemsIntro
+              icon="ShoppingCart"
+              text="Compra simples e segura"
+              variant="yellow-dark"
+            />
+            <ItemsIntro
+              icon="Package"
+              text="Embalagem mantém o café intacto"
+              variant="base-text"
+            />
+            <ItemsIntro
+              icon="Timer"
+              text="Entrega rápida e rastreada"
+              variant="yellow"
+            />
+            <ItemsIntro
+              icon="Coffee"
+              text="O café chega fresquinho até você"
+              variant="purple"
+            />
           </InfoContainer>
         </div>
 

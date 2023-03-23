@@ -5,24 +5,6 @@ export const CoffeeListContainer = styled.div`
   padding-top: 2rem;
 `
 
-export const CoffeeListItems = styled.div`
-  display: grid;
-  justify-content: space-between;
-  gap: 2.5rem 2rem;
-
-  @media screen and (max-width: 1199px) {
-    grid-template-columns: auto auto;
-  }
-
-  @media screen and (max-width: 1439px) and (min-width: 1200px) {
-    grid-template-columns: auto auto auto;
-  }
-
-  @media screen and (min-width: 1440px) {
-    grid-template-columns: auto auto auto auto;
-  }
-`
-
 export const CoffeeListHeader = styled.header`
   display: flex;
   align-items: center;
@@ -57,6 +39,12 @@ export const CoffeeListHeader = styled.header`
       }
     }
   }
+`
+
+export const CoffeeListItems = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2.5rem 2rem;
 `
 
 export const CoffeeItemContainer = styled.div`

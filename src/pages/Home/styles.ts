@@ -22,39 +22,4 @@ export const InfoContainer = styled.div`
   display: grid;
   grid-template-columns: auto auto;
   gap: 1.25rem 2.5rem;
-
-  div {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-  }
-
-  span {
-    display: flex;
-    align-items: center;
-
-    width: 2rem;
-    height: 2rem;
-    border-radius: 100%;
-    padding: 0.5rem;
-
-    background-color: ${(prpos) => prpos.theme['yellow-dark']};
-    color: ${(props) => props.theme.white};
-  }
-
-  #item-intro-1 {
-    background-color: ${(prpos) => prpos.theme['yellow-dark']};
-  }
-
-  #item-intro-2 {
-    background-color: ${(prpos) => prpos.theme['base-text']};
-  }
-
-  #item-intro-3 {
-    background-color: ${(prpos) => prpos.theme.yellow};
-  }
-
-  #item-intro-4 {
-    background-color: ${(prpos) => prpos.theme.purple};
-  }
 `

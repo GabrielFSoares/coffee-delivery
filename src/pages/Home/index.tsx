@@ -1,8 +1,8 @@
 import { HomeContainer, InfoContainer } from './styles'
 import imageHome from '../../assets/Imagem.png'
-import { Coffee, Package, ShoppingCart, Timer } from '@phosphor-icons/react'
 
 import { CoffeeList } from './components/coffee-list'
+import { ItemsIntro } from './components/items-intro'
 
 export function Home() {
   return (
@@ -16,30 +16,10 @@ export function Home() {
           </p>
 
           <InfoContainer>
-            <div>
-              <span id="item-intro-1">
-                <ShoppingCart size={16} weight="fill" />
-              </span>
-              Compra simples e segura
-            </div>
-            <div>
-              <span id="item-intro-2">
-                <Package size={16} weight="fill" />
-              </span>
-              Embalagem mantém o café intacto
-            </div>
-            <div>
-              <span id="item-intro-3">
-                <Timer size={16} weight="fill" />
-              </span>
-              Entrega rápida e rastreada
-            </div>
-            <div>
-              <span id="item-intro-4">
-                <Coffee size={16} weight="fill" />
-              </span>
-              O café chega fresquinho até você
-            </div>
+            <ItemsIntro icon="ShoppingCart" text="Compra simples e segura" />
+            <ItemsIntro icon="Package" text="Embalagem mantém o café intacto" />
+            <ItemsIntro icon="Timer" text="Entrega rápida e rastreada" />
+            <ItemsIntro icon="Coffee" text="O café chega fresquinho até você" />
           </InfoContainer>
         </div>
 

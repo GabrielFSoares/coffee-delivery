@@ -66,8 +66,22 @@ export const CoffeeItemContainer = styled.div`
     height: 7.5rem;
   }
 
-  span {
-    font-size: 0.625rem;
+  div {
+    display: flex;
+    gap: 0.25rem;
+    background-color: red;
+
+    span {
+      background-color: ${(props) => props.theme['yellow-light']};
+      color: ${(props) => props.theme['yellow-dark']};
+
+      font-size: 0.625rem;
+      padding: 0.25rem 0.5rem;
+      line-height: 13px;
+      font-weight: 700;
+
+      border-radius: 100px;
+    }
   }
 
   h1 {
@@ -81,5 +95,14 @@ export const CoffeeItemContainer = styled.div`
     text-align: center;
     margin: 0.5rem 1.25rem 2.0625rem 1.25rem;
     color: ${(props) => props.theme['base-label']};
+  }
+`
+
+export const CoffeeItemFooter = styled.footer`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  > div {
   }
 `

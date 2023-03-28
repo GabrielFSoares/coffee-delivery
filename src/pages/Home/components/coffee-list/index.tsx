@@ -4,6 +4,7 @@ import {
   CoffeeItemContainer,
   CoffeeListItems,
   CoffeeItemFooter,
+  ItemCategory,
 } from './styles'
 import { useEffect, useState } from 'react'
 import { Minus, Plus, ShoppingCart } from '@phosphor-icons/react'
@@ -42,26 +43,27 @@ export function CoffeeList() {
         {coffeeList.map((item: ItemCoffeListProps) => (
           <CoffeeItemContainer key={item.id}>
             <img src={item.image} alt="coffee icon" />
-            <div>
+            <ItemCategory>
               {Object.values(item.category).map((type: any, index) => (
                 <span key={index}>{type}</span>
               ))}
-            </div>
+            </ItemCategory>
             <h1>{item.title}</h1>
             <p>{item.subtitle}</p>
 
             <CoffeeItemFooter>
               <div>
-                <span>R$</span>
-                <span>{item.price}</span>
+                <span>
+                  R$<span>{item.price.toString()}0</span>
+                </span>
               </div>
               <div>
                 <div>
-                  <button>
+                  <button type="button">
                     <Minus size={14} />
                   </button>
-                  <p>0</p>
-                  <button>
+                  <span>0</span>
+                  <button type="button">
                     <Plus size={14} />
                   </button>
                 </div>

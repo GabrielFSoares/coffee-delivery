@@ -66,24 +66,6 @@ export const CoffeeItemContainer = styled.div`
     height: 7.5rem;
   }
 
-  div {
-    display: flex;
-    gap: 0.25rem;
-    background-color: red;
-
-    span {
-      background-color: ${(props) => props.theme['yellow-light']};
-      color: ${(props) => props.theme['yellow-dark']};
-
-      font-size: 0.625rem;
-      padding: 0.25rem 0.5rem;
-      line-height: 13px;
-      font-weight: 700;
-
-      border-radius: 100px;
-    }
-  }
-
   h1 {
     font-size: 1.25rem;
     margin-top: 1rem;
@@ -98,11 +80,32 @@ export const CoffeeItemContainer = styled.div`
   }
 `
 
+export const ItemCategory = styled.div`
+  display: flex;
+  gap: 0.25rem;
+
+  span {
+    background-color: ${(props) => props.theme['yellow-light']};
+    color: ${(props) => props.theme['yellow-dark']};
+
+    font-size: 0.625rem;
+    padding: 0.25rem 0.5rem;
+    line-height: 13px;
+    font-weight: 700;
+
+    border-radius: 100px;
+  }
+`
+
 export const CoffeeItemFooter = styled.footer`
   display: flex;
+  margin: 0rem 1.5rem;
+  gap: 1.4375rem;
   justify-content: space-between;
-  align-items: center;
 
-  > div {
+  div {
+    display: flex;
+    gap: 0.5rem;
+    background-color: red;
   }
 `

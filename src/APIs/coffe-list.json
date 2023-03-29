@@ -8,7 +8,7 @@
             "0": "TRADICIONAL"
         },
         "image": "./src/assets/Coffee-types/Type=Expresso.png",
-        "price": 9.90
+        "price": "9.90"
     },
     {
         "id": "2",
@@ -18,7 +18,7 @@
             "0": "TRADICIONAL"
         },
         "image": "./src/assets/Coffee-types/Type=Americano.png",
-        "price": 9.90
+        "price": "9.90"
     },
     {
         "id": "3",
@@ -28,7 +28,7 @@
             "0": "TRADICIONAL"
         },
         "image": "./src/assets/Coffee-types/Type=Expresso-Cremoso.png",
-        "price": 9.90
+        "price": "9.90"
     },
     {
         "id": "4",
@@ -39,7 +39,7 @@
             "1": "GELADO"
         },
         "image": "./src/assets/Coffee-types/Type=Café-Gelado.png",
-        "price": 9.90
+        "price": "9.90"
     },
     {
         "id": "5",
@@ -50,7 +50,7 @@
             "1": "COM LEITE"
         },
         "image": "./src/assets/Coffee-types/Type=Café-com-Leite.png",
-        "price": 9.90
+        "price": "9.90"
     },
     {
         "id": "6",
@@ -61,7 +61,7 @@
             "1": "COM LEITE"
         },
         "image": "./src/assets/Coffee-types/Type=Latte.png",
-        "price": 9.90
+        "price": "9.90"
     },
     {
         "id": "7",
@@ -72,7 +72,7 @@
             "1": "COM LEITE"
         },
         "image": "./src/assets/Coffee-types/Type=Capuccino.png",
-        "price": 9.90
+        "price": "9.90"
     },
     {
         "id": "8",
@@ -83,7 +83,7 @@
             "1": "COM LEITE"
         },
         "image": "./src/assets/Coffee-types/Type=Macchiato.png",
-        "price": 9.90
+        "price": "9.90"
     },
     {
         "id": "9",
@@ -94,7 +94,7 @@
             "1": "COM LEITE"
         },
         "image": "./src/assets/Coffee-types/Type=Mochaccino.png",
-        "price": 9.90
+        "price": "9.90"
     },
     {
         "id": "10",
@@ -105,7 +105,7 @@
             "1": "COM LEITE"
         },
         "image": "./src/assets/Coffee-types/Type=Chocolate-Quente.png",
-        "price": 9.90
+        "price": "9.90"
     },
     {
         "id": "11",
@@ -117,7 +117,7 @@
             "2": "GELADO"
         },
         "image": "./src/assets/Coffee-types/Type=Cubano.png",
-        "price": 9.90
+        "price": "9.90"
     },
     {
         "id": "12",
@@ -127,7 +127,7 @@
             "0": "ESPECIAL"
         },
         "image": "./src/assets/Coffee-types/Type=Havaiano.png",
-        "price": 9.90
+        "price": "9.90"
     },
     {
         "id": "13",
@@ -137,7 +137,7 @@
             "0": "ESPECIAL"
         },
         "image": "./src/assets/Coffee-types/Type=Árabe.png",
-        "price": 9.90
+        "price": "9.90"
     },
     {
         "id": "14",
@@ -148,7 +148,7 @@
             "1": "ALCOÓLICO"
         },
         "image": "./src/assets/Coffee-types/Type=Irlandês.png",
-        "price": 9.90
+        "price": "9.90"
     }
 ]
 }

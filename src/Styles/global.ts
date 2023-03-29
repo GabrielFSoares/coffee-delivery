@@ -23,16 +23,18 @@ export const GlobalStyle = createGlobalStyle`
 		max-width: 1440px;
 	}
 
-	body, input, textarea, button {
+	body, input, textarea, button, p, span {
 		font-family: 'Roboto', sans-serif;
 		font-weight: 400;
 		font-size: 1rem;
 	}
+
 	h1 {
 		font-family: 'Baloo 2', sans-serif;
 		font-weight: 800;
 		color: ${(props) => props.theme['base-title']};
 	}
+	
 	p {
 		color: ${(props) => props.theme['base-subtitle']};
 	}

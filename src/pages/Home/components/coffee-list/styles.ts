@@ -3,6 +3,12 @@ import styled from 'styled-components'
 export const CoffeeListContainer = styled.div`
   margin: 0px 10rem;
   padding-top: 2rem;
+
+  p,
+  span,
+  h1 {
+    line-height: 130%;
+  }
 `
 
 export const CoffeeListHeader = styled.header`
@@ -68,14 +74,21 @@ export const CoffeeItemContainer = styled.div`
 
   h1 {
     font-size: 1.25rem;
+    font-weight: 700;
+
+    text-align: center;
     margin-top: 1rem;
+
     color: ${(props) => props.theme['base-subtitle']};
   }
 
   p {
     font-size: 0.875rem;
+    font-weight: 400;
+
     text-align: center;
     margin: 0.5rem 1.25rem 2.0625rem 1.25rem;
+
     color: ${(props) => props.theme['base-label']};
   }
 `
@@ -85,27 +98,67 @@ export const ItemCategory = styled.div`
   gap: 0.25rem;
 
   span {
+    font-size: 0.625rem;
+    font-weight: 700;
+    text-transform: uppercase;
+
     background-color: ${(props) => props.theme['yellow-light']};
     color: ${(props) => props.theme['yellow-dark']};
 
-    font-size: 0.625rem;
     padding: 0.25rem 0.5rem;
-    line-height: 13px;
-    font-weight: 700;
-
     border-radius: 100px;
   }
 `
 
 export const CoffeeItemFooter = styled.footer`
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+
   margin: 0rem 1.5rem;
   gap: 1.4375rem;
-  justify-content: space-between;
 
-  div {
+  div:nth-child(2) {
     display: flex;
+    align-items: center;
     gap: 0.5rem;
-    background-color: red;
   }
+
+  div:nth-child(2) div {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    background-color: ${(props) => props.theme['base-button']};
+    border-radius: 6px;
+    padding: 0.53125rem 0.5rem;
+  }
+
+  div:nth-child(2) span {
+    width: 1.25rem;
+    text-align: center;
+    color: ${(props) => props.theme['base-title']};
+  }
+
+  div:nth-child(2) div button {
+    border: none;
+    background: none;
+
+    color: ${(props) => props.theme.purple};
+    cursor: pointer;
+  }
+`
+
+export const PutInCartButton = styled.button`
+  display: flex;
+  align-items: center;
+
+  background-color: ${(props) => props.theme['purple-dark']};
+  color: ${(props) => props.theme.white};
+
+  padding: 0.5rem;
+
+  border: none;
+  border-radius: 6px;
+
+  cursor: pointer;
 `

@@ -5,9 +5,10 @@ import {
   CoffeeListItems,
   CoffeeItemFooter,
   ItemCategory,
+  PutInCartButton,
 } from './styles'
 import { useEffect, useState } from 'react'
-import { Minus, Plus, ShoppingCart } from '@phosphor-icons/react'
+import { Minus, Plus, ShoppingCartSimple } from '@phosphor-icons/react'
 
 interface ItemCoffeListProps {
   id: string
@@ -15,7 +16,7 @@ interface ItemCoffeListProps {
   subtitle: string
   category: {}
   image: string
-  price: number
+  price: string
 }
 
 export function CoffeeList() {
@@ -54,7 +55,7 @@ export function CoffeeList() {
             <CoffeeItemFooter>
               <div>
                 <span>
-                  R$<span>{item.price.toString()}0</span>
+                  R$<span>{item.price}</span>
                 </span>
               </div>
               <div>
@@ -62,14 +63,14 @@ export function CoffeeList() {
                   <button type="button">
                     <Minus size={14} />
                   </button>
-                  <span>0</span>
+                  <span>1</span>
                   <button type="button">
                     <Plus size={14} />
                   </button>
                 </div>
-                <button>
-                  <ShoppingCart size={22} weight="fill" />
-                </button>
+                <PutInCartButton type="button">
+                  <ShoppingCartSimple size={22} weight="fill" />
+                </PutInCartButton>
               </div>
             </CoffeeItemFooter>
           </CoffeeItemContainer>

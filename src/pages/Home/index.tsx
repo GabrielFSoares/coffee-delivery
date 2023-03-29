@@ -1,10 +1,29 @@
-import { HomeContainer, InfoContainer } from './styles'
+import {
+  CoffeeListContainer,
+  CoffeeListItemContainer,
+  HomeContainer,
+  InfoContainer,
+} from './styles'
 import imageHome from '../../assets/Imagem.png'
 
-import { CoffeeList } from './components/coffee-list'
 import { ItemsIntro } from './components/items-intro'
 
+import { useEffect, useState } from 'react'
+import {
+  CoffeeListItem,
+  CoffeListItemProps,
+} from './components/coffee-list-item'
+
 export function Home() {
+  const [coffeeList, setCofeeList] = useState([])
+  // const [selectedItemQuantity, setSelectedItemQuantity] = useState(1)
+
+  useEffect(() => {
+    fetch('./src/APIs/coffe-list.json')
+      .then((res) => res.json())
+      .then((res) => setCofeeList(res.data))
+  })
+
   return (
     <div>
       <HomeContainer>
@@ -44,7 +63,33 @@ export function Home() {
         </div>
       </HomeContainer>
 
-      <CoffeeList />
+      <CoffeeListContainer>
+        <header>
+          <h1>Nossos cafés</h1>
+          <nav>
+            <button>TRADICIONAL</button>
+            <button>ESPECIAL</button>
+            <button>COM LEITE</button>
+            <button>ALCOÓLICO</button>
+            <button>GELADO</button>
+          </nav>
+        </header>
+        <CoffeeListItemContainer>
+          {coffeeList.map((item: CoffeListItemProps) => {
+            return (
+              <CoffeeListItem
+                key={item.id}
+                id={item.id}
+                title={item.title}
+                subtitle={item.subtitle}
+                category={item.category}
+                image={item.image}
+                price={item.price}
+              />
+            )
+          })}
+        </CoffeeListItemContainer>
+      </CoffeeListContainer>
     </div>
   )
 }

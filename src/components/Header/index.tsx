@@ -6,6 +6,7 @@ export function Header() {
   return (
     <HeaderContainer>
       <img src={logoCoffeeDelivery} alt="logotipo" />
+      <span>3</span>
 
       <nav>
         <LocationContainer>

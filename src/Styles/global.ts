@@ -6,10 +6,12 @@ export const GlobalStyle = createGlobalStyle`
 		margin: 0;
 		box-sizing: border-box;
 	}
+
 	:focus {
 		outline: 0;
 		box-shadow: 0 0 0 ${(props) => props.theme['yellow-dark']};
 	}
+
 	body {
 		background-color: ${(props) => props.theme.background};
 		color: ${(props) => props.theme['base-text']};
@@ -27,6 +29,10 @@ export const GlobalStyle = createGlobalStyle`
 		font-family: 'Roboto', sans-serif;
 		font-weight: 400;
 		font-size: 1rem;
+	}
+
+	input, textarea, button, p, span, h1, a {
+		line-height: 130%;
 	}
 
 	h1 {

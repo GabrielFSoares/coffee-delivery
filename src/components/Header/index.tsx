@@ -6,7 +6,6 @@ export function Header() {
   return (
     <HeaderContainer>
       <img src={logoCoffeeDelivery} alt="logotipo" />
-      <span>3</span>
 
       <nav>
         <LocationContainer>
@@ -14,6 +13,7 @@ export function Header() {
           <span>Rio de Janeiro, RJ</span>
         </LocationContainer>
         <button type="button">
+          <span>3</span>
           <ShoppingCart size={22} weight="fill" />
         </button>
       </nav>

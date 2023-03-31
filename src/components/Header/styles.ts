@@ -9,25 +9,6 @@ export const HeaderContainer = styled.header`
 
   margin: 0px 10rem;
 
-  > span {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    position: absolute;
-
-    width: 20px;
-    height: 20px;
-    right: 120px;
-    top: 10px;
-
-    background-color: ${(props) => props.theme['yellow-dark']};
-    border-radius: 1000px;
-    color: ${(props) => props.theme.white};
-    font-size: 0.75rem;
-    font-weight: 700;
-  }
-
   nav {
     display: flex;
     justify-content: space-between;
@@ -37,6 +18,7 @@ export const HeaderContainer = styled.header`
   button {
     display: flex;
     align-items: center;
+    position: relative;
 
     background-color: ${(props) => props.theme['yellow-light']};
     color: ${(props) => props.theme['yellow-dark']};
@@ -47,6 +29,26 @@ export const HeaderContainer = styled.header`
     border-radius: 6px;
 
     cursor: pointer;
+
+    > span {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      position: absolute;
+      z-index: 5;
+
+      width: 20px;
+      height: 20px;
+      right: -8.35px;
+      top: -8px;
+
+      background-color: ${(props) => props.theme['yellow-dark']};
+      border-radius: 1000px;
+      color: ${(props) => props.theme.white};
+      font-size: 0.75rem;
+      font-weight: 700;
+    }
   }
 `
 

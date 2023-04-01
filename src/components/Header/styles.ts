@@ -46,7 +46,7 @@ export const HeaderContainer = styled.header`
       background-color: ${(props) => props.theme['yellow-dark']};
       border-radius: 1000px;
       color: ${(props) => props.theme.white};
-      font-size: 0.75rem;
+      font-size: 0.7rem;
       font-weight: 700;
     }
   }

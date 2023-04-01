@@ -1,5 +1,6 @@
 import { Minus, Plus, ShoppingCartSimple } from '@phosphor-icons/react'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
+import { ItemsInCartContext } from '../../../../contexts/ItemsInCartContext'
 import {
   CoffeeItemContainer,
   CoffeeItemFooter,
@@ -17,6 +18,7 @@ export interface CoffeListItemProps {
 }
 
 export function CoffeeListItem(item: CoffeListItemProps) {
+  const { setItemsInCart } = useContext(ItemsInCartContext)
   const [selectedItemQuantity, setSelectedItemQuantity] = useState(1)
 
   function handleMoreOrLessInTheAmountOfItems(action: string) {
@@ -27,6 +29,11 @@ export function CoffeeListItem(item: CoffeListItemProps) {
     if (action === 'less' && selectedItemQuantity > 1) {
       setSelectedItemQuantity(selectedItemQuantity - 1)
     }
+  }
+
+  function handleSetItemsInCart(quantity: number, coffeeId: string) {
+    setItemsInCart(quantity)
+    console.log(coffeeId)
   }
 
   return (
@@ -62,7 +69,10 @@ export function CoffeeListItem(item: CoffeListItemProps) {
               <Plus size={14} />
             </button>
           </div>
-          <PutInCartButton type="button">
+          <PutInCartButton
+            type="button"
+            onClick={() => handleSetItemsInCart(selectedItemQuantity, item.id)}
+          >
             <ShoppingCartSimple size={22} weight="fill" />
           </PutInCartButton>
         </div>

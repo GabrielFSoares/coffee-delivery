@@ -16,13 +16,47 @@ import {
 
 export function Home() {
   const [coffeeList, setCofeeList] = useState([])
-  // const [selectedItemQuantity, setSelectedItemQuantity] = useState(1)
+  const [filter, setFilter] = useState('')
 
   useEffect(() => {
     fetch('./src/APIs/coffe-list.json')
       .then((res) => res.json())
-      .then((res) => setCofeeList(res.data))
-  })
+      .then((res) => {
+        Object.values(res.data).filter((item) => {
+          return 0
+        })
+      })
+
+    console.log('test')
+  }, [filter])
+
+  function filterCoffeeList(type: string) {
+    const filteredCoffeeList = coffeeList.filter((item: CoffeListItemProps) => {
+      // const itemCategory = Object.values(item.category)
+      // const category = itemCategory.filter((category) => {
+      //   console.log(category)
+      //   return category === 'TRADICIONAL'
+      // })
+      let test = false
+
+      Object.values(item.category).filter((category) => {
+        if (type === category) {
+          console.log(category)
+          test = true
+        }
+
+        return 0
+      })
+
+      if (test) {
+        return item
+      }
+
+      return 0
+    })
+    console.log(filteredCoffeeList)
+    setCofeeList(filteredCoffeeList)
+  }
 
   return (
     <div>
@@ -67,11 +101,19 @@ export function Home() {
         <header>
           <h1>Nossos cafés</h1>
           <nav>
-            <button>TRADICIONAL</button>
-            <button>ESPECIAL</button>
-            <button>COM LEITE</button>
-            <button>ALCOÓLICO</button>
-            <button>GELADO</button>
+            <button onClick={() => filterCoffeeList('TRADICIONAL')}>
+              TRADICIONAL
+            </button>
+            <button onClick={() => filterCoffeeList('ESPECIAL')}>
+              ESPECIAL
+            </button>
+            <button onClick={() => filterCoffeeList('COM LEITE')}>
+              COM LEITE
+            </button>
+            <button onClick={() => filterCoffeeList('ALCOÓLICO')}>
+              ALCOÓLICO
+            </button>
+            <button onClick={() => filterCoffeeList('GELADO')}>GELADO</button>
           </nav>
         </header>
         <CoffeeListItemContainer>

@@ -1,3 +1,5 @@
+import { CheckoutContainer } from './styles'
+
 export function Checkout() {
-  return <div>Order</div>
+  return <CheckoutContainer>Checkout</CheckoutContainer>
 }

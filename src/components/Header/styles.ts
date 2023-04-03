@@ -24,7 +24,6 @@ export const HeaderContainer = styled.header`
     color: ${(props) => props.theme['yellow-dark']};
 
     padding: 0.5rem;
-
     border: none;
     border-radius: 6px;
 
@@ -36,7 +35,6 @@ export const HeaderContainer = styled.header`
       align-items: center;
 
       position: absolute;
-      z-index: 5;
 
       width: 20px;
       height: 20px;

@@ -4,7 +4,6 @@ export const HomeContainer = styled.div`
   display: flex;
   justify-content: space-between;
   gap: 3.5rem;
-
   margin: 0px 10rem;
   padding: 5.75rem 0px;
 

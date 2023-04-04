@@ -22,40 +22,31 @@ export function Home() {
     fetch('./src/APIs/coffe-list.json')
       .then((res) => res.json())
       .then((res) => {
-        Object.values(res.data).filter((item) => {
-          return 0
-        })
-      })
+        if (filter === '') {
+          setCofeeList(res.data)
+        } else {
+          const filteredCoffeeList = res.data.filter(
+            (item: CoffeListItemProps) => {
+              let correctFilter = false
+              Object.values(item.category).filter((category) => {
+                if (filter === category) {
+                  correctFilter = true
+                }
 
-    console.log('test')
+                return 0
+              })
+
+              return correctFilter ? item : 0
+            },
+          )
+
+          setCofeeList(filteredCoffeeList)
+        }
+      })
   }, [filter])
 
   function filterCoffeeList(type: string) {
-    const filteredCoffeeList = coffeeList.filter((item: CoffeListItemProps) => {
-      // const itemCategory = Object.values(item.category)
-      // const category = itemCategory.filter((category) => {
-      //   console.log(category)
-      //   return category === 'TRADICIONAL'
-      // })
-      let test = false
-
-      Object.values(item.category).filter((category) => {
-        if (type === category) {
-          console.log(category)
-          test = true
-        }
-
-        return 0
-      })
-
-      if (test) {
-        return item
-      }
-
-      return 0
-    })
-    console.log(filteredCoffeeList)
-    setCofeeList(filteredCoffeeList)
+    setFilter(type)
   }
 
   return (

@@ -1,21 +1,48 @@
+import { MapPinLine } from '@phosphor-icons/react'
 import {
+  AddressContainer,
+  CepInput,
   CheckoutContainer,
-  InfoContainer,
+  CityInput,
+  ComplementInput,
+  NeighborhoodInput,
+  NumberInput,
   SelectedCoffeesContainer,
+  StreetInput,
+  UFInput,
 } from './styles'
 
 export function Checkout() {
   return (
     <CheckoutContainer>
-      <InfoContainer>
+      <div>
         <p>Complete seu pedido</p>
-        <div>Endereço</div>
+        <AddressContainer>
+          <header>
+            <span>
+              <MapPinLine size={22} />
+            </span>
+            <p>
+              <p>Endereço de Entrega</p>
+              <label>Informe o endereço onde deseja receber seu pedido</label>
+            </p>
+          </header>
+          <form>
+            <CepInput type="number" placeholder="CEP" />
+            <StreetInput type="text" placeholder="Rua" />
+            <NumberInput type="number" placeholder="Número" />
+            <ComplementInput type="text" placeholder="Complemento" />
+            <NeighborhoodInput type="text" placeholder="Bairro" />
+            <CityInput type="text" placeholder="Cidade" />
+            <UFInput type="text" placeholder="UF" />
+          </form>
+        </AddressContainer>
         <div>Pagamento</div>
-      </InfoContainer>
-      <SelectedCoffeesContainer>
+      </div>
+      <div>
         <p>Cafés Selecionados</p>
-        <div>Cafés</div>
-      </SelectedCoffeesContainer>
+        <SelectedCoffeesContainer>Cafés</SelectedCoffeesContainer>
+      </div>
     </CheckoutContainer>
   )
 }

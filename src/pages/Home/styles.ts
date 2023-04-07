@@ -64,6 +64,7 @@ export const CoffeeListContainer = styled.div`
 export const CoffeeListItemContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-between;
   gap: 2.5rem 2rem;
   margin-top: 3.875rem;
 `

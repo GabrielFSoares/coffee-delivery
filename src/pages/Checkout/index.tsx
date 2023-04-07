@@ -1,15 +1,17 @@
-import { MapPinLine } from '@phosphor-icons/react'
+import {
+  Bank,
+  CreditCard,
+  CurrencyDollar,
+  MapPinLine,
+  Money,
+} from '@phosphor-icons/react'
 import {
   AddressContainer,
-  CepInput,
   CheckoutContainer,
-  CityInput,
-  ComplementInput,
-  NeighborhoodInput,
-  NumberInput,
+  FormOfPaymentConatiner,
+  HeaderContainer,
+  PaymentContainer,
   SelectedCoffeesContainer,
-  StreetInput,
-  UFInput,
 } from './styles'
 
 export function Checkout() {
@@ -18,26 +20,61 @@ export function Checkout() {
       <div>
         <p>Complete seu pedido</p>
         <AddressContainer>
-          <header>
+          <HeaderContainer>
             <span>
               <MapPinLine size={22} />
             </span>
-            <p>
+            <span>
               <p>Endereço de Entrega</p>
               <label>Informe o endereço onde deseja receber seu pedido</label>
-            </p>
-          </header>
+            </span>
+          </HeaderContainer>
           <form>
-            <CepInput type="number" placeholder="CEP" />
-            <StreetInput type="text" placeholder="Rua" />
-            <NumberInput type="number" placeholder="Número" />
-            <ComplementInput type="text" placeholder="Complemento" />
-            <NeighborhoodInput type="text" placeholder="Bairro" />
-            <CityInput type="text" placeholder="Cidade" />
-            <UFInput type="text" placeholder="UF" />
+            <input type="number" placeholder="CEP" />
+            <input type="text" placeholder="Rua" />
+            <input type="number" placeholder="Número" />
+            <input type="text" placeholder="Complemento" />
+            <input type="text" placeholder="Bairro" />
+            <input type="text" placeholder="Cidade" />
+            <input type="text" placeholder="UF" />
           </form>
         </AddressContainer>
-        <div>Pagamento</div>
+        <PaymentContainer>
+          <HeaderContainer>
+            <span>
+              <CurrencyDollar size={22} />
+            </span>
+            <span>
+              <p>Pagamento</p>
+              <label>
+                O pagamento é feito na entrega. Escolha a forma que deseja pagar
+              </label>
+            </span>
+          </HeaderContainer>
+          <FormOfPaymentConatiner>
+            <input type="radio" id="credito" name="FormOfPayment" />
+            <label htmlFor="credito">
+              <span>
+                <CreditCard size={16} />
+              </span>
+              Cartão de crédito
+            </label>
+            <input type="radio" id="debito" name="FormOfPayment" />
+            <label htmlFor="debito">
+              <span>
+                <Bank size={16} />
+              </span>
+              Cartão de débito
+            </label>
+            <input type="radio" id="dinheiro" name="FormOfPayment" />
+            <label htmlFor="dinheiro">
+              <span>
+                <Money size={16} />
+              </span>
+              Dinheiro
+            </label>
+          </FormOfPaymentConatiner>
+        </PaymentContainer>
       </div>
       <div>
         <p>Cafés Selecionados</p>

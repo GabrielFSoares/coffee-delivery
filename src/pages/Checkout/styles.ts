@@ -18,92 +18,121 @@ const BaseContainer = styled.div`
   background-color: ${(props) => props.theme['base-card']};
   padding: 2.5rem;
 `
-export const InfoContainer = styled.div`
-  /* form {
-    
 
-    #rua {
-      width: 100%;
-    }
+export const HeaderContainer = styled.header`
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
 
-    #complemento {
-      width: 21.75rem;
-    }
+  label {
+    font-size: 0.875rem;
+    margin-top: 2px;
 
-    #cidade {
-      width: 17.25rem;
-    }
-
-    #uf {
-      width: 3.75rem;
-    }
-  } */
+    color: ${(props) => props.theme['base-text']};
+  }
 `
 
 export const AddressContainer = styled(BaseContainer)`
   margin-bottom: 0.75rem;
   border-radius: 6px;
 
-  header {
-    display: flex;
-    gap: 0.5rem;
-    margin-bottom: 2rem;
-
-    > span {
-      color: ${(props) => props.theme['yellow-dark']};
-    }
-
-    label {
-      font-size: 0.875rem;
-      margin-top: 2px;
-
-      color: ${(props) => props.theme['base-text']};
-    }
+  header > span {
+    color: ${(props) => props.theme['yellow-dark']};
   }
 
   form {
     display: flex;
     flex-wrap: wrap;
     gap: 1rem 0.75rem;
+
+    input {
+      background-color: ${(props) => props.theme['base-input']};
+      color: ${(props) => props.theme['base-text']};
+
+      border: 1px solid ${(props) => props.theme['base-button']};
+      border-radius: 4px;
+
+      font-size: 0.875rem;
+      padding: 0.75rem;
+
+      ::placeholder {
+        color: ${(props) => props.theme['base-label']};
+      }
+
+      :focus {
+        border: 1px solid ${(props) => props.theme['yellow-dark']};
+      }
+    }
+
+    input[type='number'],
+    input[placeholder='Bairro'] {
+      width: 12.5rem;
+    }
+
+    input[placeholder='Rua'] {
+      width: 100%;
+    }
+
+    input[placeholder='Complemento'] {
+      width: 21.75rem;
+    }
+
+    input[placeholder='Cidade'] {
+      width: 17.25rem;
+    }
+
+    input[placeholder='UF'] {
+      width: 3.75rem;
+    }
   }
 `
+export const PaymentContainer = styled(BaseContainer)`
+  border-radius: 6px;
 
-const BaseInput = styled.input`
-  background-color: ${(props) => props.theme['base-input']};
-  color: ${(props) => props.theme['base-text']};
-
-  border: 1px solid ${(props) => props.theme['base-button']};
-  border-radius: 4px;
-
-  font-size: 0.875rem;
-  padding: 0.75rem;
-  //width: 12.5rem;
-
-  ::placeholder {
-    color: ${(props) => props.theme['base-label']};
+  header > span {
+    color: ${(props) => props.theme.purple};
   }
 `
+export const FormOfPaymentConatiner = styled.div`
+  display: flex;
+  gap: 0.75rem;
 
-export const CepInput = styled(BaseInput)``
+  input[type='radio'] {
+    display: none;
 
-export const StreetInput = styled(BaseInput)`
-  width: 100%;
-`
+    :checked + label {
+      border: 1px solid ${(props) => props.theme.purple};
+    }
 
-export const NumberInput = styled(BaseInput)``
+    + label {
+      color: ${(props) => props.theme['base-text']};
+      border: 1px solid ${(props) => props.theme['base-button']};
+      background-color: ${(props) => props.theme['base-button']};
 
-export const ComplementInput = styled(BaseInput)`
-  width: 21.75rem;
-`
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      padding: 1rem;
+      border-radius: 6px;
+      width: 11.17rem;
 
-export const NeighborhoodInput = styled(BaseInput)``
+      cursor: pointer;
 
-export const CityInput = styled(BaseInput)`
-  width: 17.25rem;
-`
+      display: flex;
+      align-items: center;
 
-export const UFInput = styled(BaseInput)`
-  width: 3.75rem;
+      :hover {
+        color: ${(props) => props.theme['base-subtitle']};
+        background-color: ${(props) => props.theme['base-hover']};
+      }
+
+      span {
+        display: flex;
+        margin-right: 0.75rem;
+
+        color: ${(props) => props.theme.purple};
+      }
+    }
+  }
 `
 
 export const SelectedCoffeesContainer = styled(BaseContainer)`

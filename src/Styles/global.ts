@@ -21,6 +21,8 @@ export const GlobalStyle = createGlobalStyle`
 	body > div {
 		margin: 0 auto;
 		max-width: 1440px;
+
+		padding: 0 111px;
 	}
 
 	body, input, textarea, button, p, span {

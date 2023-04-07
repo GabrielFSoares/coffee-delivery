@@ -7,8 +7,6 @@ export const HeaderContainer = styled.header`
   align-items: center;
   justify-content: space-between;
 
-  margin: 0px 10rem;
-
   nav {
     display: flex;
     justify-content: space-between;

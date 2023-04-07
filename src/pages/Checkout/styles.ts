@@ -4,7 +4,6 @@ export const CheckoutContainer = styled.div`
   display: grid;
   grid-template-columns: 40rem 28rem;
   justify-content: space-between;
-  margin: 0px 10rem;
   padding-top: 2.5rem;
 
   div > p {

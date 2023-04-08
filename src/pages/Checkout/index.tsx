@@ -13,6 +13,7 @@ import {
   PaymentContainer,
   SelectedCoffeesContainer,
 } from './styles'
+import { CoffeeListInCart } from './components/coffee-list-in-cart'
 
 export function Checkout() {
   return (
@@ -78,7 +79,9 @@ export function Checkout() {
       </div>
       <div>
         <p>Cafés Selecionados</p>
-        <SelectedCoffeesContainer>Cafés</SelectedCoffeesContainer>
+        <SelectedCoffeesContainer>
+          <CoffeeListInCart />
+        </SelectedCoffeesContainer>
       </div>
     </CheckoutContainer>
   )

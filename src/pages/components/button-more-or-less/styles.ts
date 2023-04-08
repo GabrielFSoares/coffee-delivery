@@ -21,6 +21,7 @@ export const ButtonMoreOrLessContainer = styled.div`
   }
 
   span {
+    font-size: 0.875rem;
     width: 1.25rem;
     text-align: center;
     color: ${(props) => props.theme['base-title']};

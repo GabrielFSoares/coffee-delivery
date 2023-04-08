@@ -31,7 +31,7 @@ export const GlobalStyle = createGlobalStyle`
 		font-size: 1rem;
 	}
 
-	input, textarea, button, p, span, h1, a {
+	input, textarea, button, p, span, h1, h2, a {
 		line-height: 130%;
 	}
 

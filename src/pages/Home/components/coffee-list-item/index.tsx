@@ -23,16 +23,6 @@ export function CoffeeListItem(item: CoffeListItemProps) {
 
   const [selectedItemQuantity, setSelectedItemQuantity] = useState(1)
 
-  function handleMoreOrLessInTheAmountOfItems(action: string) {
-    if (action === 'more') {
-      setSelectedItemQuantity(selectedItemQuantity + 1)
-    }
-
-    if (action === 'less' && selectedItemQuantity > 1) {
-      setSelectedItemQuantity(selectedItemQuantity - 1)
-    }
-  }
-
   function handleSetItemsInCart(quantity: number, coffeeId: string) {
     setItemsInCart(quantity)
     console.log(coffeeId)
@@ -58,7 +48,7 @@ export function CoffeeListItem(item: CoffeListItemProps) {
         <div>
           <ButtonMoreOrLess
             selectedItemQuantity={selectedItemQuantity}
-            moreOrLessInTheAmountOfItems={handleMoreOrLessInTheAmountOfItems}
+            setSelectedItemQuantity={setSelectedItemQuantity}
           />
           <PutInCartButton
             type="button"

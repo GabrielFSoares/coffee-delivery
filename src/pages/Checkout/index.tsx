@@ -19,7 +19,7 @@ export function Checkout() {
   return (
     <CheckoutContainer>
       <div>
-        <p>Complete seu pedido</p>
+        <h2>Complete seu pedido</h2>
         <AddressContainer>
           <HeaderContainer>
             <span>
@@ -78,7 +78,7 @@ export function Checkout() {
         </PaymentContainer>
       </div>
       <div>
-        <p>Cafés Selecionados</p>
+        <h2>Cafés Selecionados</h2>
         <SelectedCoffeesContainer>
           <CoffeeListInCart />
         </SelectedCoffeesContainer>

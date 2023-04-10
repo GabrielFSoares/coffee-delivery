@@ -4,11 +4,13 @@ import { ButtonMoreOrLessContainer } from './styles'
 interface ButtonMoreOrLessProps {
   selectedItemQuantity: number
   setSelectedItemQuantity: (quantity: number) => void
+  height?: string
 }
 
 export function ButtonMoreOrLess({
   selectedItemQuantity,
   setSelectedItemQuantity,
+  height = '2.375rem',
 }: ButtonMoreOrLessProps) {
   function handleMoreOrLessInTheAmountOfItems(action: string) {
     if (action === 'more') {
@@ -21,7 +23,7 @@ export function ButtonMoreOrLess({
   }
 
   return (
-    <ButtonMoreOrLessContainer>
+    <ButtonMoreOrLessContainer height={height}>
       <button
         type="button"
         onClick={() => handleMoreOrLessInTheAmountOfItems('less')}

@@ -1,12 +1,23 @@
 import styled from 'styled-components'
 
-export const ButtonMoreOrLessContainer = styled.div`
+interface ButtonMoreOrLessProps {
+  height: string
+}
+
+export const ButtonMoreOrLessContainer = styled.div<ButtonMoreOrLessProps>`
   display: flex;
   align-items: center;
   gap: 0.25rem;
   background-color: ${(props) => props.theme['base-button']};
   border-radius: 6px;
-  padding: 0.53125rem 0.5rem;
+  padding: 0.5rem;
+  height: ${(props) => props.height};
+
+  button,
+  span {
+    display: flex;
+    justify-content: center;
+  }
 
   button {
     border: none;

@@ -24,8 +24,7 @@ export function CoffeeListItem(item: CoffeListItemProps) {
   const [selectedItemQuantity, setSelectedItemQuantity] = useState(1)
 
   function handleSetItemsInCart(quantity: number, coffeeId: string) {
-    setItemsInCart(quantity)
-    console.log(coffeeId)
+    setItemsInCart(quantity, coffeeId)
   }
 
   return (

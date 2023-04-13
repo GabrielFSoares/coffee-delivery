@@ -8,42 +8,41 @@ import imageHome from '../../assets/Imagem.png'
 
 import { ItemsIntro } from './components/items-intro'
 
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import {
   CoffeeListItem,
   CoffeListItemProps,
 } from './components/coffee-list-item'
+import { CoffeeListContext } from '../../contexts/CoffeeListContext'
 
 export function Home() {
-  const [coffeeList, setCofeeList] = useState([])
+  const { coffeeList } = useContext(CoffeeListContext)
+
+  const [coffeeListFiltered, setCoffeeListFiltered] = useState([])
   const [filter, setFilter] = useState('')
 
   useEffect(() => {
-    fetch('./src/APIs/coffe-list.json')
-      .then((res) => res.json())
-      .then((res) => {
-        if (filter === '') {
-          setCofeeList(res.data)
-        } else {
-          const filteredCoffeeList = res.data.filter(
-            (item: CoffeListItemProps) => {
-              let correctFilter = false
-              Object.values(item.category).filter((category) => {
-                if (filter === category) {
-                  correctFilter = true
-                }
+    if (filter === '') {
+      setCoffeeListFiltered(coffeeList)
+    } else {
+      const filteredCoffeeList = coffeeList.filter(
+        (item: CoffeListItemProps) => {
+          let correctFilter = false
+          Object.values(item.category).filter((category) => {
+            if (filter === category) {
+              correctFilter = true
+            }
 
-                return 0
-              })
+            return 0
+          })
 
-              return correctFilter ? item : 0
-            },
-          )
+          return correctFilter ? item : 0
+        },
+      )
 
-          setCofeeList(filteredCoffeeList)
-        }
-      })
-  }, [filter])
+      setCoffeeListFiltered(filteredCoffeeList)
+    }
+  }, [filter, coffeeList])
 
   function filterCoffeeList(type: string) {
     setFilter(type)
@@ -108,7 +107,7 @@ export function Home() {
           </nav>
         </header>
         <CoffeeListItemContainer>
-          {coffeeList.map((item: CoffeListItemProps) => {
+          {coffeeListFiltered.map((item: CoffeListItemProps) => {
             return (
               <CoffeeListItem
                 key={item.id}

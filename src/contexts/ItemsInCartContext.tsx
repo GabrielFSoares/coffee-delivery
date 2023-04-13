@@ -1,9 +1,6 @@
-import { createContext, ReactNode, useReducer } from 'react'
+import { createContext, ReactNode, useEffect, useReducer } from 'react'
 import { CoffeeListInCartReducer } from '../reducers/coffeeListInCart/reducers'
-import {
-  ActionTypes,
-  addItemInCartAction,
-} from '../reducers/coffeeListInCart/actions'
+import { addItemInCartAction } from '../reducers/coffeeListInCart/actions'
 
 interface ItemsInCartProps {
   quantityOfItemsInCart: number
@@ -14,37 +11,51 @@ interface ItemsInCartContextProviderProps {
   children: ReactNode
 }
 
+export interface itemInCart {
+  coffeeId: string | null
+  quantity: number
+}
+
 export const ItemsInCartContext = createContext({} as ItemsInCartProps)
 
 export function ItemsInCartContextProvider({
   children,
 }: ItemsInCartContextProviderProps) {
-  // const [quantityOfItemsInCart, setQuantityOfItemsInCart] = useState(0)
-  const [itemsInCartState, dispach] = useReducer(CoffeeListInCartReducer, {
-    coffeeId: '',
-    quantityOfItemsInCart: 0,
-  })
+  const [itemsInCartState, dispach] = useReducer(
+    CoffeeListInCartReducer,
+    {
+      itemsInCart: [],
+      quantityOfItemsInCart: 0,
+    },
+    (initialState) => {
+      const storageStateAsJSON = localStorage.getItem(
+        '@coffee-delivery:coffee-list-in-cart',
+      )
+      console.log(storageStateAsJSON)
+
+      if (storageStateAsJSON) {
+        return JSON.parse(storageStateAsJSON)
+      }
+
+      return initialState
+    },
+  )
 
   const { quantityOfItemsInCart } = itemsInCartState
 
-  // useEffect(() => {
-  //   const stateJSON = JSON.stringify(itemsInCartState)
+  useEffect(() => {
+    const stateJSON = JSON.stringify(itemsInCartState)
 
-  //   console.log(itemsInCartState)
-
-  //   localStorage.setItem('coffee list in cart', JSON.stringify(stateJSON))
-  // }, [itemsInCartState])
+    localStorage.setItem('@coffee-delivery:coffee-list-in-cart', stateJSON)
+  }, [itemsInCartState])
 
   function setItemsInCart(quantity: number, coffeeId: string) {
-    const itemInCart = {
+    const newItemInCart: itemInCart = {
       coffeeId,
-      quantityOfItemsInCart: quantity,
+      quantity,
     }
 
-    // console.log(itemInCart)
-    dispach(addItemInCartAction(itemInCart))
-
-    // setQuantityOfItemsInCart(quantityOfItemsInCart + quantity)
+    dispach(addItemInCartAction(newItemInCart))
   }
 
   return (

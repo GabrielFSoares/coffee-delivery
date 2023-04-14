@@ -1,11 +1,12 @@
 import { ReactNode, createContext, useEffect, useState } from 'react'
+import { CoffeListItemProps } from '../pages/Home/components/coffee-list-item'
 
 interface CoffeeListContextProviderProps {
   children: ReactNode
 }
 
 interface CoffeeListProps {
-  coffeeList: never[]
+  coffeeList: CoffeListItemProps[]
 }
 
 export const CoffeeListContext = createContext({} as CoffeeListProps)

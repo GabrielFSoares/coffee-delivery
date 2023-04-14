@@ -2,18 +2,19 @@ import { createContext, ReactNode, useEffect, useReducer } from 'react'
 import { CoffeeListInCartReducer } from '../reducers/coffeeListInCart/reducers'
 import { addItemInCartAction } from '../reducers/coffeeListInCart/actions'
 
+export interface itemInCart {
+  coffeeId: string | null
+  quantity: number
+}
+
 interface ItemsInCartProps {
   quantityOfItemsInCart: number
   setItemsInCart: (quantity: number, coffeeId: string) => void
+  itemsInCart: itemInCart[]
 }
 
 interface ItemsInCartContextProviderProps {
   children: ReactNode
-}
-
-export interface itemInCart {
-  coffeeId: string | null
-  quantity: number
 }
 
 export const ItemsInCartContext = createContext({} as ItemsInCartProps)
@@ -31,7 +32,6 @@ export function ItemsInCartContextProvider({
       const storageStateAsJSON = localStorage.getItem(
         '@coffee-delivery:coffee-list-in-cart',
       )
-      console.log(storageStateAsJSON)
 
       if (storageStateAsJSON) {
         return JSON.parse(storageStateAsJSON)
@@ -41,7 +41,7 @@ export function ItemsInCartContextProvider({
     },
   )
 
-  const { quantityOfItemsInCart } = itemsInCartState
+  const { itemsInCart, quantityOfItemsInCart } = itemsInCartState
 
   useEffect(() => {
     const stateJSON = JSON.stringify(itemsInCartState)
@@ -60,7 +60,7 @@ export function ItemsInCartContextProvider({
 
   return (
     <ItemsInCartContext.Provider
-      value={{ quantityOfItemsInCart, setItemsInCart }}
+      value={{ quantityOfItemsInCart, setItemsInCart, itemsInCart }}
     >
       {children}
     </ItemsInCartContext.Provider>

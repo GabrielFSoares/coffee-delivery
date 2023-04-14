@@ -18,27 +18,27 @@ import { CoffeeListContext } from '../../contexts/CoffeeListContext'
 export function Home() {
   const { coffeeList } = useContext(CoffeeListContext)
 
-  const [coffeeListFiltered, setCoffeeListFiltered] = useState([])
+  const [coffeeListFiltered, setCoffeeListFiltered] = useState(
+    Array<CoffeListItemProps>,
+  )
   const [filter, setFilter] = useState('')
 
   useEffect(() => {
     if (filter === '') {
       setCoffeeListFiltered(coffeeList)
     } else {
-      const filteredCoffeeList = coffeeList.filter(
-        (item: CoffeListItemProps) => {
-          let correctFilter = false
-          Object.values(item.category).filter((category) => {
-            if (filter === category) {
-              correctFilter = true
-            }
+      const filteredCoffeeList = coffeeList.filter((item) => {
+        let correctFilter = false
+        Object.values(item.category).filter((category) => {
+          if (filter === category) {
+            correctFilter = true
+          }
 
-            return 0
-          })
+          return 0
+        })
 
-          return correctFilter ? item : 0
-        },
-      )
+        return correctFilter ? item : 0
+      })
 
       setCoffeeListFiltered(filteredCoffeeList)
     }

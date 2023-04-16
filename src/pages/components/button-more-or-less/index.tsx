@@ -3,22 +3,28 @@ import { ButtonMoreOrLessContainer } from './styles'
 
 interface ButtonMoreOrLessProps {
   selectedItemQuantity: number
-  setSelectedItemQuantity: (quantity: number) => void
+  setSelectedItemQuantity: (
+    quantity: number,
+    id: string,
+    action: string,
+  ) => void
   height?: string
+  id: string
 }
 
 export function ButtonMoreOrLess({
   selectedItemQuantity,
   setSelectedItemQuantity,
   height = '2.375rem',
+  id,
 }: ButtonMoreOrLessProps) {
   function handleMoreOrLessInTheAmountOfItems(action: string) {
     if (action === 'more') {
-      setSelectedItemQuantity(selectedItemQuantity + 1)
+      setSelectedItemQuantity(selectedItemQuantity + 1, id, action)
     }
 
     if (action === 'less' && selectedItemQuantity > 1) {
-      setSelectedItemQuantity(selectedItemQuantity - 1)
+      setSelectedItemQuantity(selectedItemQuantity - 1, id, action)
     }
   }
 

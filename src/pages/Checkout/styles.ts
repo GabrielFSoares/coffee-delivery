@@ -139,3 +139,51 @@ export const FormOfPaymentConatiner = styled.div`
 export const SelectedCoffeesContainer = styled(BaseContainer)`
   border-radius: 6px 44px;
 `
+
+export const CoffeeListInCartContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+
+  button {
+    border: none;
+    border-radius: 6px;
+
+    cursor: pointer;
+  }
+`
+
+export const TotalPayableContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+
+  div {
+    display: flex;
+    justify-content: space-between;
+
+    span {
+      font-size: 0.875rem;
+    }
+  }
+
+  div:last-of-type {
+    span {
+      font-size: 1.25rem;
+      font-weight: bold;
+      color: ${(props) => props.theme['base-subtitle']};
+    }
+  }
+`
+
+export const ConfirmButton = styled.button`
+  background-color: ${(props) => props.theme.yellow};
+  color: ${(props) => props.theme.white};
+
+  text-transform: uppercase;
+  padding: 0.75rem;
+
+  :hover {
+    background-color: ${(props) => props.theme['yellow-dark']};
+  }
+`

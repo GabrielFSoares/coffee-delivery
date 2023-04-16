@@ -1,9 +1,13 @@
 import { createContext, ReactNode, useEffect, useReducer } from 'react'
 import { CoffeeListInCartReducer } from '../reducers/coffeeListInCart/reducers'
-import { addItemInCartAction } from '../reducers/coffeeListInCart/actions'
+import {
+  addItemInCartAction,
+  addItemQuantityToCartAction,
+  removeItemInCartAction,
+} from '../reducers/coffeeListInCart/actions'
 
 export interface itemInCart {
-  coffeeId: string | null
+  coffeeId: string
   quantity: number
 }
 
@@ -11,6 +15,12 @@ interface ItemsInCartProps {
   quantityOfItemsInCart: number
   setItemsInCart: (quantity: number, coffeeId: string) => void
   itemsInCart: itemInCart[]
+  setItemQuantityInCart: (
+    quantity: number,
+    coffeeId: string,
+    action: string,
+  ) => void
+  removeItemInCart: (coffeeId: string, quantity: number) => void
 }
 
 interface ItemsInCartContextProviderProps {
@@ -58,9 +68,32 @@ export function ItemsInCartContextProvider({
     dispach(addItemInCartAction(newItemInCart))
   }
 
+  function setItemQuantityInCart(
+    quantity: number,
+    coffeeId: string,
+    action: string,
+  ) {
+    const newItemQuantityInCart: itemInCart = {
+      coffeeId,
+      quantity,
+    }
+
+    dispach(addItemQuantityToCartAction(newItemQuantityInCart, action))
+  }
+
+  function removeItemInCart(cofeeId: string, quantity: number) {
+    dispach(removeItemInCartAction(cofeeId, quantity))
+  }
+
   return (
     <ItemsInCartContext.Provider
-      value={{ quantityOfItemsInCart, setItemsInCart, itemsInCart }}
+      value={{
+        quantityOfItemsInCart,
+        setItemsInCart,
+        itemsInCart,
+        setItemQuantityInCart,
+        removeItemInCart,
+      }}
     >
       {children}
     </ItemsInCartContext.Provider>

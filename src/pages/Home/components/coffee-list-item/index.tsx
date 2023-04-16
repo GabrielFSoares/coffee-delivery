@@ -48,6 +48,7 @@ export function CoffeeListItem(item: CoffeListItemProps) {
           <ButtonMoreOrLess
             selectedItemQuantity={selectedItemQuantity}
             setSelectedItemQuantity={setSelectedItemQuantity}
+            id={item.id}
           />
           <PutInCartButton
             type="button"

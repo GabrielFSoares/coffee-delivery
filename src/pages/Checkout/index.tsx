@@ -8,14 +8,23 @@ import {
 import {
   AddressContainer,
   CheckoutContainer,
+  CoffeeListInCartContainer,
+  ConfirmButton,
   FormOfPaymentConatiner,
   HeaderContainer,
   PaymentContainer,
   SelectedCoffeesContainer,
+  TotalPayableContainer,
 } from './styles'
 import { CoffeeListInCart } from './components/coffee-list-in-cart'
+import { useContext } from 'react'
+import { CoffeeListContext } from '../../contexts/CoffeeListContext'
+import { ItemsInCartContext } from '../../contexts/ItemsInCartContext'
 
 export function Checkout() {
+  const { coffeeList } = useContext(CoffeeListContext)
+  const { itemsInCart } = useContext(ItemsInCartContext)
+
   return (
     <CheckoutContainer>
       <div>
@@ -80,7 +89,44 @@ export function Checkout() {
       <div>
         <h2>Cafés Selecionados</h2>
         <SelectedCoffeesContainer>
-          <CoffeeListInCart />
+          <CoffeeListInCartContainer>
+            {itemsInCart.map((item) => {
+              const currentItemIndex = coffeeList.findIndex((itemId) => {
+                return itemId.id === item.coffeeId
+              })
+
+              if (currentItemIndex > -1) {
+                return (
+                  <CoffeeListInCart
+                    key={currentItemIndex}
+                    coffeeId={item.coffeeId}
+                    title={coffeeList[currentItemIndex].title}
+                    image={coffeeList[currentItemIndex].image}
+                    price={coffeeList[currentItemIndex].price}
+                    quantity={item.quantity}
+                  />
+                )
+              }
+
+              return null
+            })}
+
+            <TotalPayableContainer>
+              <div>
+                <span>Total de itens</span>
+                <span>R$ 29,70</span>
+              </div>
+              <div>
+                <span>Entrega</span>
+                <span>R$ 29,70</span>
+              </div>
+              <div>
+                <span>Total</span>
+                <span>R$ 29,70</span>
+              </div>
+            </TotalPayableContainer>
+            <ConfirmButton>Confirmar pedido</ConfirmButton>
+          </CoffeeListInCartContainer>
         </SelectedCoffeesContainer>
       </div>
     </CheckoutContainer>

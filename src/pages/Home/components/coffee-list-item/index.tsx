@@ -7,7 +7,7 @@ import {
   ItemCategory,
   PutInCartButton,
 } from './style'
-import { ButtonMoreOrLess } from '../../../components/button-more-or-less'
+import { ButtonMoreOrLess } from '../../../../components/button-more-or-less'
 
 export interface CoffeListItemProps {
   id: string

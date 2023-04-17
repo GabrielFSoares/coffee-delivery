@@ -5,7 +5,7 @@ import {
   RemoveButton,
 } from './styles'
 
-import { ButtonMoreOrLess } from '../../../components/button-more-or-less'
+import { ButtonMoreOrLess } from '../../../../components/button-more-or-less'
 import { useContext } from 'react'
 import { Trash } from '@phosphor-icons/react'
 import { ItemsInCartContext } from '../../../../contexts/ItemsInCartContext'

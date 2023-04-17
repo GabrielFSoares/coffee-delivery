@@ -59,7 +59,7 @@ export function CoffeeListInCart(props: CoffeeListInCartProps) {
         </ButtonsContainer>
       </div>
       <CoffeePrice>
-        <span>{props.price}</span>
+        <span>{props.price.replace('.', ',')}</span>
       </CoffeePrice>
     </CoffeeListItemInCartContainer>
   )

@@ -187,3 +187,12 @@ export const ConfirmButton = styled.button`
     background-color: ${(props) => props.theme['yellow-dark']};
   }
 `
+
+export const EmptyCart = styled.div`
+  display: flex;
+  justify-content: center;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  padding: 2rem;
+  color: ${(props) => props.theme['base-label']};
+`

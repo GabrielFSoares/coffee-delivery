@@ -10,6 +10,7 @@ import {
   CheckoutContainer,
   CoffeeListInCartContainer,
   ConfirmButton,
+  EmptyCart,
   FormOfPaymentConatiner,
   HeaderContainer,
   PaymentContainer,
@@ -17,13 +18,41 @@ import {
   TotalPayableContainer,
 } from './styles'
 import { CoffeeListInCart } from './components/coffee-list-in-cart'
-import { useContext } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { CoffeeListContext } from '../../contexts/CoffeeListContext'
 import { ItemsInCartContext } from '../../contexts/ItemsInCartContext'
 
 export function Checkout() {
   const { coffeeList } = useContext(CoffeeListContext)
   const { itemsInCart } = useContext(ItemsInCartContext)
+
+  const [totalItems, setTotalItems] = useState('0')
+
+  const deliveryPrice = itemsInCart.length > 0 ? (3.5).toFixed(2) : '0'
+
+  const totalPayable = (
+    parseFloat(deliveryPrice) + parseFloat(totalItems)
+  ).toFixed(2)
+
+  useEffect(() => {
+    let sumItemPrices = 0
+    if (coffeeList.length > 0 && itemsInCart.length > 0) {
+      itemsInCart.map((item) => {
+        const currentItemIndex = coffeeList.findIndex((itemId) => {
+          return itemId.id === item.coffeeId
+        })
+
+        sumItemPrices =
+          sumItemPrices +
+          parseFloat(coffeeList[currentItemIndex].price) * item.quantity
+        setTotalItems(sumItemPrices.toFixed(2))
+
+        return item
+      })
+    } else {
+      setTotalItems('0')
+    }
+  }, [itemsInCart, coffeeList])
 
   return (
     <CheckoutContainer>
@@ -90,39 +119,46 @@ export function Checkout() {
         <h2>Cafés Selecionados</h2>
         <SelectedCoffeesContainer>
           <CoffeeListInCartContainer>
-            {itemsInCart.map((item) => {
-              const currentItemIndex = coffeeList.findIndex((itemId) => {
-                return itemId.id === item.coffeeId
+            {itemsInCart.length > 0 ? (
+              itemsInCart.map((item) => {
+                const currentItemIndex = coffeeList.findIndex((itemId) => {
+                  return itemId.id === item.coffeeId
+                })
+
+                if (currentItemIndex > -1) {
+                  return (
+                    <CoffeeListInCart
+                      key={currentItemIndex}
+                      coffeeId={item.coffeeId}
+                      title={coffeeList[currentItemIndex].title}
+                      image={coffeeList[currentItemIndex].image}
+                      price={(
+                        parseFloat(coffeeList[currentItemIndex].price) *
+                        item.quantity
+                      ).toFixed(2)}
+                      quantity={item.quantity}
+                    />
+                  )
+                }
+
+                return null
               })
-
-              if (currentItemIndex > -1) {
-                return (
-                  <CoffeeListInCart
-                    key={currentItemIndex}
-                    coffeeId={item.coffeeId}
-                    title={coffeeList[currentItemIndex].title}
-                    image={coffeeList[currentItemIndex].image}
-                    price={coffeeList[currentItemIndex].price}
-                    quantity={item.quantity}
-                  />
-                )
-              }
-
-              return null
-            })}
+            ) : (
+              <EmptyCart>Seu Carrinho está vazio</EmptyCart>
+            )}
 
             <TotalPayableContainer>
               <div>
                 <span>Total de itens</span>
-                <span>R$ 29,70</span>
+                <span>R$ {totalItems.replace('.', ',')}</span>
               </div>
               <div>
                 <span>Entrega</span>
-                <span>R$ 29,70</span>
+                <span>R$ {deliveryPrice.replace('.', ',')}</span>
               </div>
               <div>
                 <span>Total</span>
-                <span>R$ 29,70</span>
+                <span>R$ {totalPayable.replace('.', ',')}</span>
               </div>
             </TotalPayableContainer>
             <ConfirmButton>Confirmar pedido</ConfirmButton>

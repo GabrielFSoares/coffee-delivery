@@ -21,6 +21,7 @@ import { CoffeeListInCart } from './components/coffee-list-in-cart'
 import { useContext, useEffect, useState } from 'react'
 import { CoffeeListContext } from '../../contexts/CoffeeListContext'
 import { ItemsInCartContext } from '../../contexts/ItemsInCartContext'
+import { NavLink } from 'react-router-dom'
 
 export function Checkout() {
   const { coffeeList } = useContext(CoffeeListContext)
@@ -161,7 +162,9 @@ export function Checkout() {
                 <span>R$ {totalPayable.replace('.', ',')}</span>
               </div>
             </TotalPayableContainer>
-            <ConfirmButton>Confirmar pedido</ConfirmButton>
+            <NavLink to="/success" title="Success">
+              <ConfirmButton>Confirmar pedido</ConfirmButton>
+            </NavLink>
           </CoffeeListInCartContainer>
         </SelectedCoffeesContainer>
       </div>

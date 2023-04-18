@@ -182,6 +182,7 @@ export const ConfirmButton = styled.button`
 
   text-transform: uppercase;
   padding: 0.75rem;
+  width: 100%;
 
   :hover {
     background-color: ${(props) => props.theme['yellow-dark']};

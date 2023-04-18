@@ -6,7 +6,7 @@ import {
 } from './styles'
 import imageHome from '../../assets/Imagem.png'
 
-import { ItemsIntro } from './components/items-intro'
+import { ItemsIntro } from './components/intro-items'
 
 import { useContext, useEffect, useState } from 'react'
 import {

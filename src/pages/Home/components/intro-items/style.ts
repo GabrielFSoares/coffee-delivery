@@ -2,11 +2,11 @@ import styled from 'styled-components'
 
 export type itemColorVariant = 'yellow-dark' | 'yellow' | 'purple' | 'base-text'
 
-interface ItemsIntroContainerProps {
+export interface ItemsContainerProps {
   variant: itemColorVariant
 }
 
-export const ItemsIntroContainer = styled.div<ItemsIntroContainerProps>`
+export const IntroItemsContainer = styled.div<ItemsContainerProps>`
   display: flex;
   align-items: center;
   gap: 0.75rem;

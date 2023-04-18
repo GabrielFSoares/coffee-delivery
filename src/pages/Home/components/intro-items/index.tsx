@@ -1,7 +1,7 @@
 import { Coffee, Package, ShoppingCart, Timer } from '@phosphor-icons/react'
-import { itemColorVariant, ItemsIntroContainer } from './style'
+import { itemColorVariant, IntroItemsContainer } from './style'
 
-interface itemsIntroProps {
+interface introItemsProps {
   icon: 'ShoppingCart' | 'Package' | 'Timer' | 'Coffee'
   text: string
   variant?: itemColorVariant
@@ -11,7 +11,7 @@ export function ItemsIntro({
   icon,
   text,
   variant = 'yellow',
-}: itemsIntroProps) {
+}: introItemsProps) {
   function iconChange(icon: string) {
     if (icon === 'ShoppingCart') {
       return <ShoppingCart size={16} weight="fill" />
@@ -31,9 +31,9 @@ export function ItemsIntro({
   }
 
   return (
-    <ItemsIntroContainer variant={variant}>
+    <IntroItemsContainer variant={variant}>
       <span>{iconChange(icon)}</span>
       {text}
-    </ItemsIntroContainer>
+    </IntroItemsContainer>
   )
 }

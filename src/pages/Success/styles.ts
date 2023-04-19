@@ -2,9 +2,13 @@ import styled from 'styled-components'
 
 export const SuccessContainer = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   gap: 6.375rem;
   margin-top: 5rem;
+
+  img {
+    margin-top: 6.25rem;
+  }
 
   div:nth-child(1) {
     h1 {

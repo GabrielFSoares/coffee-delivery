@@ -1,6 +1,6 @@
 import { SuccessContainer } from './styles'
 import Illustration from '../../assets/Illustration.png'
-import { MapPin } from '@phosphor-icons/react'
+import { SummaryItems } from './components/summary-items'
 
 export function Success() {
   return (
@@ -9,13 +9,9 @@ export function Success() {
         <h1>Uhu! Pedido confirmado</h1>
         <p>Agora é só aguardar que logo o café chegará até você</p>
         <div>
-          <div>
-            <span>
-              <MapPin size={16} />
-            </span>
-          </div>
-          <div>2</div>
-          <div>3</div>
+          <SummaryItems icon="MapPin" variant="purple" />
+          <SummaryItems icon="Timer" />
+          <SummaryItems icon="CurrencyDollar" variant="yellow-dark" />
         </div>
       </div>
       <div>

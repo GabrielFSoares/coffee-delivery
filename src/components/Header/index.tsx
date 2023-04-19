@@ -1,12 +1,31 @@
 import { HeaderContainer, LocationContainer } from './styles'
 import logoCoffeeDelivery from '../../assets/Logo.svg'
 import { MapPin, ShoppingCart } from '@phosphor-icons/react'
-import { useContext } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { ItemsInCartContext } from '../../contexts/ItemsInCartContext'
 import { NavLink } from 'react-router-dom'
 
 export function Header() {
   const { quantityOfItemsInCart } = useContext(ItemsInCartContext)
+  const [state, setState] = useState('')
+  const [uf, setUF] = useState('')
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(function (position) {
+      const { latitude, longitude } = position.coords
+      fetch(
+        `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`,
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          const ISO3166 = Object.values(data.address)[8]
+          const ufString = ISO3166 as string
+
+          setState(data.address.state)
+          setUF(ufString.slice(-2))
+        })
+    })
+  }, [])
 
   return (
     <HeaderContainer>
@@ -15,7 +34,7 @@ export function Header() {
       <nav>
         <LocationContainer>
           <MapPin size={22} weight="fill" />
-          <span>Rio de Janeiro, RJ</span>
+          <span>{state && uf ? `${state}, ${uf}` : 'Porto Alegre, RS'}</span>
         </LocationContainer>
         <NavLink to="/checkout" title="Checkout">
           <button type="button">

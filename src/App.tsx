@@ -9,15 +9,8 @@ import { ItemsInCartContextProvider } from './contexts/ItemsInCartContext'
 import { CoffeeListContextProvider } from './contexts/CoffeeListContext'
 
 export function App() {
-  function componentDidMount() {
-    navigator.geolocation.getCurrentPosition(function (position) {
-      console.log(position)
-    })
-    return null
-  }
   return (
     <ThemeProvider theme={defaultTheme}>
-      {componentDidMount()}
       <BrowserRouter>
         <CoffeeListContextProvider>
           <ItemsInCartContextProvider>

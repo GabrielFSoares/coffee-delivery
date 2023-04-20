@@ -7,7 +7,7 @@ import { NavLink } from 'react-router-dom'
 
 export function Header() {
   const { quantityOfItemsInCart } = useContext(ItemsInCartContext)
-  const [state, setState] = useState('')
+  const [city, setCity] = useState('')
   const [uf, setUF] = useState('')
 
   useEffect(() => {
@@ -18,10 +18,12 @@ export function Header() {
       )
         .then((res) => res.json())
         .then((data) => {
-          const ISO3166 = Object.values(data.address)[8]
-          const ufString = ISO3166 as string
+          const ISO3166 = Object.keys(data.address).findIndex((key) => {
+            return key === 'ISO3166-2-lvl4'
+          })
+          const ufString = Object.values(data.address)[ISO3166] as string
 
-          setState(data.address.state)
+          setCity(data.address.city)
           setUF(ufString.slice(-2))
         })
     })
@@ -34,7 +36,7 @@ export function Header() {
       <nav>
         <LocationContainer>
           <MapPin size={22} weight="fill" />
-          <span>{state && uf ? `${state}, ${uf}` : 'Porto Alegre, RS'}</span>
+          <span>{city && uf ? `${city}, ${uf}` : 'Porto Alegre, RS'}</span>
         </LocationContainer>
         <NavLink to="/checkout" title="Checkout">
           <button type="button">

@@ -11,6 +11,7 @@ import {
   CoffeeListInCartContainer,
   ConfirmButton,
   EmptyCart,
+  FormConatiner,
   FormOfPaymentConatiner,
   HeaderContainer,
   PaymentContainer,
@@ -18,22 +19,33 @@ import {
   TotalPayableContainer,
 } from './styles'
 import { CoffeeListInCart } from './components/coffee-list-in-cart'
-import { useContext, useEffect, useState } from 'react'
+import React, { useCallback, useContext, useEffect, useState } from 'react'
 import { CoffeeListContext } from '../../contexts/CoffeeListContext'
 import { ItemsInCartContext } from '../../contexts/ItemsInCartContext'
-import { NavLink } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import * as zod from 'zod'
+
+const newOrderValidationSchema = zod.object({
+  zipCode: zod.string().length(9, 'CEP inválido'),
+  road: zod.string().min(1, 'Informe seu endereço'),
+  number: zod.number().min(1),
+  complement: zod.string().optional(),
+  neighborhood: zod.string().min(1, 'Informe seu bairro'),
+  city: zod.string().min(1, 'Informe sua cidade'),
+  uf: zod.string().length(2).toUpperCase(),
+  formOfPayment: zod.string().min(1, 'Informe a forma de pagamento'),
+})
+
+type NewOrderFormData = zod.infer<typeof newOrderValidationSchema>
 
 export function Checkout() {
   const { coffeeList } = useContext(CoffeeListContext)
   const { itemsInCart } = useContext(ItemsInCartContext)
+  const navigate = useNavigate()
 
   const [totalItems, setTotalItems] = useState('0')
-
-  const deliveryPrice = itemsInCart.length > 0 ? (3.5).toFixed(2) : '0'
-
-  const totalPayable = (
-    parseFloat(deliveryPrice) + parseFloat(totalItems)
-  ).toFixed(2)
 
   useEffect(() => {
     let sumItemPrices = 0
@@ -55,119 +67,211 @@ export function Checkout() {
     }
   }, [itemsInCart, coffeeList])
 
+  const { register, handleSubmit, formState, setValue } =
+    useForm<NewOrderFormData>({
+      resolver: zodResolver(newOrderValidationSchema),
+      defaultValues: {
+        zipCode: '',
+        road: '',
+        number: undefined,
+        complement: '',
+        neighborhood: '',
+        city: '',
+        uf: '',
+        formOfPayment: '',
+      },
+    })
+
+  console.log(formState.errors.formOfPayment?.message)
+
+  // const zipCodeValue = watch('zipCode')
+
+  const deliveryPrice = itemsInCart.length > 0 ? (3.5).toFixed(2) : '0'
+  const totalPayable = (
+    parseFloat(deliveryPrice) + parseFloat(totalItems)
+  ).toFixed(2)
+
+  const handleZipCodeMask = useCallback(
+    (e: React.FormEvent<HTMLInputElement>) => {
+      let value = e.currentTarget.value.replace(/\D/g, '')
+      value = value.replace(/^(\d{5})(\d)/, '$1-$2')
+      e.currentTarget.value = value
+
+      if (value.length === 9) {
+        value = value.replace('-', '')
+        fetch(`http://viacep.com.br/ws/${value}/json/`)
+          .then((res) => res.json())
+          .then((res) => {
+            setValue('road', res.logradouro)
+            setValue('complement', res.complemento)
+            setValue('neighborhood', res.bairro)
+            setValue('city', res.localidade)
+            setValue('uf', res.uf)
+          })
+      }
+    },
+    [setValue],
+  )
+
+  function handleCreateNewOrder(data: NewOrderFormData) {
+    console.log(data)
+    // navigate('/success')
+  }
+
   return (
-    <CheckoutContainer>
-      <div>
-        <h2>Complete seu pedido</h2>
-        <AddressContainer>
-          <HeaderContainer>
-            <span>
-              <MapPinLine size={22} />
-            </span>
-            <span>
-              <p>Endereço de Entrega</p>
-              <label>Informe o endereço onde deseja receber seu pedido</label>
-            </span>
-          </HeaderContainer>
-          <form>
-            <input type="number" placeholder="CEP" />
-            <input type="text" placeholder="Rua" />
-            <input type="number" placeholder="Número" />
-            <input type="text" placeholder="Complemento" />
-            <input type="text" placeholder="Bairro" />
-            <input type="text" placeholder="Cidade" />
-            <input type="text" placeholder="UF" />
-          </form>
-        </AddressContainer>
-        <PaymentContainer>
-          <HeaderContainer>
-            <span>
-              <CurrencyDollar size={22} />
-            </span>
-            <span>
-              <p>Pagamento</p>
-              <label>
-                O pagamento é feito na entrega. Escolha a forma que deseja pagar
+    <form onSubmit={handleSubmit(handleCreateNewOrder)}>
+      <CheckoutContainer>
+        <div>
+          <h2>Complete seu pedido</h2>
+          <AddressContainer>
+            <HeaderContainer>
+              <span>
+                <MapPinLine size={22} />
+              </span>
+              <span>
+                <p>Endereço de Entrega</p>
+                <label>Informe o endereço onde deseja receber seu pedido</label>
+              </span>
+            </HeaderContainer>
+            <FormConatiner>
+              <input
+                type="text"
+                placeholder="CEP"
+                maxLength={9}
+                {...register('zipCode')}
+                onKeyUp={handleZipCodeMask}
+              />
+              <input type="text" placeholder="Rua" {...register('road')} />
+              <input
+                type="number"
+                placeholder="Número"
+                {...register('number', { valueAsNumber: true })}
+              />
+              <input
+                type="text"
+                placeholder="Complemento"
+                {...register('complement')}
+              />
+              <input
+                type="text"
+                placeholder="Bairro"
+                {...register('neighborhood')}
+              />
+              <input type="text" placeholder="Cidade" {...register('city')} />
+              <input
+                type="text"
+                placeholder="UF"
+                maxLength={2}
+                {...register('uf')}
+              />
+            </FormConatiner>
+          </AddressContainer>
+          <PaymentContainer>
+            <HeaderContainer>
+              <span>
+                <CurrencyDollar size={22} />
+              </span>
+              <span>
+                <p>Pagamento</p>
+                <label>
+                  O pagamento é feito na entrega. Escolha a forma que deseja
+                  pagar
+                </label>
+              </span>
+            </HeaderContainer>
+            <FormOfPaymentConatiner>
+              <input
+                type="radio"
+                id="credit"
+                value="credit"
+                {...register('formOfPayment')}
+              />
+              <label htmlFor="credit">
+                <span>
+                  <CreditCard size={16} />
+                </span>
+                Cartão de crédito
               </label>
-            </span>
-          </HeaderContainer>
-          <FormOfPaymentConatiner>
-            <input type="radio" id="credito" name="FormOfPayment" />
-            <label htmlFor="credito">
-              <span>
-                <CreditCard size={16} />
-              </span>
-              Cartão de crédito
-            </label>
-            <input type="radio" id="debito" name="FormOfPayment" />
-            <label htmlFor="debito">
-              <span>
-                <Bank size={16} />
-              </span>
-              Cartão de débito
-            </label>
-            <input type="radio" id="dinheiro" name="FormOfPayment" />
-            <label htmlFor="dinheiro">
-              <span>
-                <Money size={16} />
-              </span>
-              Dinheiro
-            </label>
-          </FormOfPaymentConatiner>
-        </PaymentContainer>
-      </div>
-      <div>
-        <h2>Cafés Selecionados</h2>
-        <SelectedCoffeesContainer>
-          <CoffeeListInCartContainer>
-            {itemsInCart.length > 0 ? (
-              itemsInCart.map((item) => {
-                const currentItemIndex = coffeeList.findIndex((itemId) => {
-                  return itemId.id === item.coffeeId
+              <input
+                type="radio"
+                id="debit"
+                value="debit"
+                {...register('formOfPayment')}
+              />
+              <label htmlFor="debit">
+                <span>
+                  <Bank size={16} />
+                </span>
+                Cartão de débito
+              </label>
+              <input
+                type="radio"
+                id="money"
+                value="money"
+                {...register('formOfPayment')}
+              />
+              <label htmlFor="money">
+                <span>
+                  <Money size={16} />
+                </span>
+                Dinheiro
+              </label>
+            </FormOfPaymentConatiner>
+          </PaymentContainer>
+        </div>
+        <div>
+          <h2>Cafés Selecionados</h2>
+          <SelectedCoffeesContainer>
+            <CoffeeListInCartContainer>
+              {itemsInCart.length > 0 ? (
+                itemsInCart.map((item) => {
+                  const currentItemIndex = coffeeList.findIndex((itemId) => {
+                    return itemId.id === item.coffeeId
+                  })
+
+                  if (currentItemIndex > -1) {
+                    return (
+                      <CoffeeListInCart
+                        key={currentItemIndex}
+                        coffeeId={item.coffeeId}
+                        title={coffeeList[currentItemIndex].title}
+                        image={coffeeList[currentItemIndex].image}
+                        price={(
+                          parseFloat(coffeeList[currentItemIndex].price) *
+                          item.quantity
+                        ).toFixed(2)}
+                        quantity={item.quantity}
+                      />
+                    )
+                  }
+
+                  return null
                 })
+              ) : (
+                <EmptyCart>Seu Carrinho está vazio</EmptyCart>
+              )}
 
-                if (currentItemIndex > -1) {
-                  return (
-                    <CoffeeListInCart
-                      key={currentItemIndex}
-                      coffeeId={item.coffeeId}
-                      title={coffeeList[currentItemIndex].title}
-                      image={coffeeList[currentItemIndex].image}
-                      price={(
-                        parseFloat(coffeeList[currentItemIndex].price) *
-                        item.quantity
-                      ).toFixed(2)}
-                      quantity={item.quantity}
-                    />
-                  )
-                }
+              <TotalPayableContainer>
+                <div>
+                  <span>Total de itens</span>
+                  <span>R$ {totalItems.replace('.', ',')}</span>
+                </div>
+                <div>
+                  <span>Entrega</span>
+                  <span>R$ {deliveryPrice.replace('.', ',')}</span>
+                </div>
+                <div>
+                  <span>Total</span>
+                  <span>R$ {totalPayable.replace('.', ',')}</span>
+                </div>
+              </TotalPayableContainer>
 
-                return null
-              })
-            ) : (
-              <EmptyCart>Seu Carrinho está vazio</EmptyCart>
-            )}
-
-            <TotalPayableContainer>
-              <div>
-                <span>Total de itens</span>
-                <span>R$ {totalItems.replace('.', ',')}</span>
-              </div>
-              <div>
-                <span>Entrega</span>
-                <span>R$ {deliveryPrice.replace('.', ',')}</span>
-              </div>
-              <div>
-                <span>Total</span>
-                <span>R$ {totalPayable.replace('.', ',')}</span>
-              </div>
-            </TotalPayableContainer>
-            <NavLink to="/success" title="Success">
-              <ConfirmButton>Confirmar pedido</ConfirmButton>
-            </NavLink>
-          </CoffeeListInCartContainer>
-        </SelectedCoffeesContainer>
-      </div>
-    </CheckoutContainer>
+              <ConfirmButton type="submit">Confirmar pedido</ConfirmButton>
+              <span>{formState.errors.formOfPayment?.message}</span>
+            </CoffeeListInCartContainer>
+          </SelectedCoffeesContainer>
+        </div>
+      </CheckoutContainer>
+    </form>
   )
 }

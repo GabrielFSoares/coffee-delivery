@@ -57,7 +57,7 @@ function hundleCreateNewCycle(data: any) {
 
 <form onSubmit={handleSubmit(hundleCreateNewCycle)} /> ;
 
-<TaskInput
+<input
 	id="task"
     list="task-suggestions"
     placeholder="Dê um nome ao seu projeto"

@@ -40,51 +40,51 @@ export const AddressContainer = styled(BaseContainer)`
   header > span {
     color: ${(props) => props.theme['yellow-dark']};
   }
+`
+export const FormConatiner = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 0.75rem;
 
-  form {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem 0.75rem;
+  input {
+    background-color: ${(props) => props.theme['base-input']};
+    color: ${(props) => props.theme['base-text']};
 
-    input {
-      background-color: ${(props) => props.theme['base-input']};
-      color: ${(props) => props.theme['base-text']};
+    border: 1px solid ${(props) => props.theme['base-button']};
+    border-radius: 4px;
 
-      border: 1px solid ${(props) => props.theme['base-button']};
-      border-radius: 4px;
+    font-size: 0.875rem;
+    padding: 0.75rem;
 
-      font-size: 0.875rem;
-      padding: 0.75rem;
-
-      ::placeholder {
-        color: ${(props) => props.theme['base-label']};
-      }
-
-      :focus {
-        border: 1px solid ${(props) => props.theme['yellow-dark']};
-      }
+    ::placeholder {
+      color: ${(props) => props.theme['base-label']};
     }
 
-    input[type='number'],
-    input[placeholder='Bairro'] {
-      width: 12.5rem;
+    :focus {
+      border: 1px solid ${(props) => props.theme['yellow-dark']};
     }
+  }
 
-    input[placeholder='Rua'] {
-      width: 100%;
-    }
+  input[type='number'],
+  input[placeholder='Bairro'] {
+    width: 12.5rem;
+  }
 
-    input[placeholder='Complemento'] {
-      width: 21.75rem;
-    }
+  input[placeholder='Rua'] {
+    width: 100%;
+  }
 
-    input[placeholder='Cidade'] {
-      width: 17.25rem;
-    }
+  input[placeholder='Complemento'] {
+    width: 21.75rem;
+  }
 
-    input[placeholder='UF'] {
-      width: 3.75rem;
-    }
+  input[placeholder='Cidade'] {
+    width: 17.25rem;
+  }
+
+  input[placeholder='UF'] {
+    width: 3.75rem;
+    text-transform: uppercase;
   }
 `
 export const PaymentContainer = styled(BaseContainer)`
@@ -150,6 +150,12 @@ export const CoffeeListInCartContainer = styled.div`
     border-radius: 6px;
 
     cursor: pointer;
+  }
+
+  > span:last-of-type {
+    text-align: center;
+    font-size: 0.875rem;
+    color: red;
   }
 `
 

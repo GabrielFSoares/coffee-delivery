@@ -4,6 +4,7 @@ export enum ActionTypes {
   ADD_ITEM_IN_CART = 'ADD_ITEM_IN_CART',
   ADD_ITEM_QUANTITY_TO_CART = 'ADD_ITEM_QUANTITY_TO_CART',
   REMOVE_ITEM_IN_CART = 'REMOVE_ITEM_IN_CART',
+  EMPTY_CART = 'EMPTY_CART',
 }
 
 export function addItemInCartAction(newItemInCart: itemInCart) {
@@ -35,5 +36,11 @@ export function removeItemInCartAction(coffeeId: string, quantity: number) {
       coffeeId,
       quantity,
     },
+  }
+}
+
+export function emptyCartAction() {
+  return {
+    type: ActionTypes.EMPTY_CART,
   }
 }

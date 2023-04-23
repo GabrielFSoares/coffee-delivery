@@ -8,7 +8,7 @@ import imageHome from '../../assets/Imagem.png'
 
 import { ItemsIntro } from './components/intro-items'
 
-import { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import {
   CoffeeListItem,
   CoffeListItemProps,
@@ -21,31 +21,91 @@ export function Home() {
   const [coffeeListFiltered, setCoffeeListFiltered] = useState(
     Array<CoffeListItemProps>,
   )
-  const [filter, setFilter] = useState('')
+  const [filter, setFilter] = useState(Array<string>)
 
   useEffect(() => {
-    if (filter === '') {
+    if (filter.length === 0) {
       setCoffeeListFiltered(coffeeList)
     } else {
       const filteredCoffeeList = coffeeList.filter((item) => {
-        let correctFilter = false
-        Object.values(item.category).filter((category) => {
-          if (filter === category) {
-            correctFilter = true
-          }
+        const correctFilter = false
 
-          return 0
+        // filter.filter((f) => {
+        //   Object.values(item.category).filter((category) => {
+        //     if (f === category) {
+        //       correctFilter = true
+        //     }
+        //     return null
+        //   })
+        //   return null
+        // })
+
+        Object.values(item.category).findIndex((category) => {
+          // if (filter[0] === category) correctFilter = true
+
+          // const test = filter.findIndex((item) => {
+          //   return item === category
+          // })
+
+          // if (test !== -1) {
+          //   correctFilter = true
+          // }
+
+          // test === -1 ? (correctFilter = false) : (correctFilter = true)
+          // if (filter[index]) {
+          //   filter[index] === category
+          //     ? (correctFilter = true)
+          //     : (correctFilter = false)
+          // }
+
+          //   // if (filter.length === 1) {
+          //   //   if (filter[index] === category) correctFilter = true
+          //   // } else {
+          //   //   filter.filter((t) =>
+          //   //     t === category ? (correctFilter = true) : (correctFilter = false),
+          //   //   )
+
+          //   // console.log(index)
+
+          //   // while (i < filter.length) {
+          //   //   filter[i] === category
+          //   //     ? (correctFilter = true)
+          //   //     : (correctFilter = false)
+          //   //   i = filter.length
+          //   // }
+          //   // for (let i = 0; i < filter.length; i++) {
+          //   //   if (filter[i] === category) {
+          //   //     correctFilter = true
+          //   //   } else {
+          //   //     correctFilter = false
+          //   //   }
+          //   // }
+          //   // }
+
+          return null
         })
 
-        return correctFilter ? item : 0
+        return correctFilter ? item : null
       })
 
       setCoffeeListFiltered(filteredCoffeeList)
     }
   }, [filter, coffeeList])
 
-  function filterCoffeeList(type: string) {
-    setFilter(type)
+  function handleFilterCoffeeList(
+    type: string,
+    event: React.MouseEvent<HTMLInputElement>,
+  ) {
+    // console.log(event.currentTarget.checked)
+    if (event.currentTarget.checked) {
+      setFilter([...filter, type.toUpperCase()])
+    } else {
+      setFilter((item) => {
+        const removeFilter = item.filter((filter) => filter !== type)
+        return removeFilter
+      })
+    }
+    // console.log(filter)
   }
 
   return (
@@ -91,19 +151,41 @@ export function Home() {
         <header>
           <h1>Nossos cafés</h1>
           <nav>
-            <button onClick={() => filterCoffeeList('TRADICIONAL')}>
-              TRADICIONAL
-            </button>
-            <button onClick={() => filterCoffeeList('ESPECIAL')}>
-              ESPECIAL
-            </button>
-            <button onClick={() => filterCoffeeList('COM LEITE')}>
-              COM LEITE
-            </button>
-            <button onClick={() => filterCoffeeList('ALCOÓLICO')}>
-              ALCOÓLICO
-            </button>
-            <button onClick={() => filterCoffeeList('GELADO')}>GELADO</button>
+            <input
+              type="checkbox"
+              id="traditional"
+              name="filterCoffeeList"
+              onClick={(e) => handleFilterCoffeeList('TRADICIONAL', e)}
+            />
+            <label htmlFor="traditional">TRADICIONAL</label>
+            <input
+              type="checkbox"
+              id="special"
+              name="filterCoffeeList"
+              onClick={(e) => handleFilterCoffeeList('ESPECIAL', e)}
+            />
+            <label htmlFor="special">ESPECIAL</label>
+            <input
+              type="checkbox"
+              id="withMilk"
+              name="filterCoffeeList"
+              onClick={(e) => handleFilterCoffeeList('COM LEITE', e)}
+            />
+            <label htmlFor="withMilk">COM LEITE</label>
+            <input
+              type="checkbox"
+              id="alcoholic"
+              name="filterCoffeeList"
+              onClick={(e) => handleFilterCoffeeList('ALCOÓLICO', e)}
+            />
+            <label htmlFor="alcoholic">ALCOÓLICO</label>
+            <input
+              type="checkbox"
+              id="iced"
+              name="filterCoffeeList"
+              onClick={(e) => handleFilterCoffeeList('GELADO', e)}
+            />
+            <label htmlFor="iced">GELADO</label>
           </nav>
         </header>
         <CoffeeListItemContainer>

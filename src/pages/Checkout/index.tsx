@@ -28,17 +28,23 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import * as zod from 'zod'
 
 const newOrderValidationSchema = zod.object({
-  zipCode: zod.string().length(9, 'CEP inválido'),
-  road: zod.string().min(1, 'Informe seu endereço'),
-  number: zod.number().min(1),
-  complement: zod.string().optional(),
-  neighborhood: zod.string().min(1, 'Informe seu bairro'),
-  city: zod.string().min(1, 'Informe sua cidade'),
-  uf: zod.string().length(2).toUpperCase(),
-  formOfPayment: zod.string().min(1, 'Informe a forma de pagamento'),
+  address: zod.object({
+    zipCode: zod.string().length(9, 'CEP inválido'),
+    road: zod.string().min(1, 'Informe seu endereço'),
+    number: zod.number().min(1),
+    complement: zod.string().optional(),
+    neighborhood: zod.string().min(1, 'Informe seu bairro'),
+    city: zod.string().min(1, 'Informe sua cidade'),
+    uf: zod.string().length(2).toUpperCase(),
+  }),
+  payment: zod.object({
+    formOfPayment: zod.string().min(1, 'Informe a forma de pagamento'),
+    totalPayable: zod.string(),
+  }),
+  items: zod.any(),
 })
 
-type NewOrderFormData = zod.infer<typeof newOrderValidationSchema>
+export type NewOrderFormData = zod.infer<typeof newOrderValidationSchema>
 
 export function Checkout() {
   const { coffeeList } = useContext(CoffeeListContext)
@@ -65,57 +71,64 @@ export function Checkout() {
     } else {
       setTotalItems('0')
     }
+
+    localStorage.removeItem('@coffee-delivery:order')
   }, [itemsInCart, coffeeList])
-
-  const { register, handleSubmit, formState, setValue } =
-    useForm<NewOrderFormData>({
-      resolver: zodResolver(newOrderValidationSchema),
-      defaultValues: {
-        zipCode: '',
-        road: '',
-        number: undefined,
-        complement: '',
-        neighborhood: '',
-        city: '',
-        uf: '',
-        formOfPayment: '',
-      },
-    })
-
-  console.log(formState.errors.formOfPayment?.message)
-
-  // const zipCodeValue = watch('zipCode')
 
   const deliveryPrice = itemsInCart.length > 0 ? (3.5).toFixed(2) : '0'
   const totalPayable = (
     parseFloat(deliveryPrice) + parseFloat(totalItems)
   ).toFixed(2)
 
+  const { register, handleSubmit, formState, setValue } =
+    useForm<NewOrderFormData>({
+      resolver: zodResolver(newOrderValidationSchema),
+      defaultValues: {
+        address: {
+          zipCode: '',
+          road: '',
+          number: undefined,
+          complement: '',
+          neighborhood: '',
+          city: '',
+          uf: '',
+        },
+        payment: {
+          formOfPayment: '',
+          totalPayable,
+        },
+        items: itemsInCart,
+      },
+    })
+
+  const isSubmitDisabled = itemsInCart.length > 0
+
   const handleZipCodeMask = useCallback(
     (e: React.FormEvent<HTMLInputElement>) => {
-      let value = e.currentTarget.value.replace(/\D/g, '')
-      value = value.replace(/^(\d{5})(\d)/, '$1-$2')
-      e.currentTarget.value = value
+      let zipCodeValue = e.currentTarget.value.replace(/\D/g, '')
+      zipCodeValue = zipCodeValue.replace(/^(\d{5})(\d)/, '$1-$2')
+      e.currentTarget.value = zipCodeValue
 
-      if (value.length === 9) {
-        value = value.replace('-', '')
-        fetch(`http://viacep.com.br/ws/${value}/json/`)
+      if (zipCodeValue.length === 9) {
+        zipCodeValue = zipCodeValue.replace('-', '')
+        fetch(`http://viacep.com.br/ws/${zipCodeValue}/json/`)
           .then((res) => res.json())
           .then((res) => {
-            setValue('road', res.logradouro)
-            setValue('complement', res.complemento)
-            setValue('neighborhood', res.bairro)
-            setValue('city', res.localidade)
-            setValue('uf', res.uf)
+            setValue('address.road', res.logradouro)
+            setValue('address.complement', res.complemento)
+            setValue('address.neighborhood', res.bairro)
+            setValue('address.city', res.localidade)
+            setValue('address.uf', res.uf)
           })
       }
     },
     [setValue],
   )
 
-  function handleCreateNewOrder(data: NewOrderFormData) {
-    console.log(data)
-    // navigate('/success')
+  function handleCreateNewOrder(order: NewOrderFormData) {
+    order.payment.totalPayable = totalPayable
+    localStorage.setItem('@coffee-delivery:order', JSON.stringify(order))
+    navigate('/success')
   }
 
   return (
@@ -138,31 +151,39 @@ export function Checkout() {
                 type="text"
                 placeholder="CEP"
                 maxLength={9}
-                {...register('zipCode')}
+                {...register('address.zipCode')}
                 onKeyUp={handleZipCodeMask}
               />
-              <input type="text" placeholder="Rua" {...register('road')} />
+              <input
+                type="text"
+                placeholder="Rua"
+                {...register('address.road')}
+              />
               <input
                 type="number"
                 placeholder="Número"
-                {...register('number', { valueAsNumber: true })}
+                {...register('address.number', { valueAsNumber: true })}
               />
               <input
                 type="text"
                 placeholder="Complemento"
-                {...register('complement')}
+                {...register('address.complement')}
               />
               <input
                 type="text"
                 placeholder="Bairro"
-                {...register('neighborhood')}
+                {...register('address.neighborhood')}
               />
-              <input type="text" placeholder="Cidade" {...register('city')} />
+              <input
+                type="text"
+                placeholder="Cidade"
+                {...register('address.city')}
+              />
               <input
                 type="text"
                 placeholder="UF"
                 maxLength={2}
-                {...register('uf')}
+                {...register('address.uf')}
               />
             </FormConatiner>
           </AddressContainer>
@@ -184,7 +205,7 @@ export function Checkout() {
                 type="radio"
                 id="credit"
                 value="credit"
-                {...register('formOfPayment')}
+                {...register('payment.formOfPayment')}
               />
               <label htmlFor="credit">
                 <span>
@@ -196,7 +217,7 @@ export function Checkout() {
                 type="radio"
                 id="debit"
                 value="debit"
-                {...register('formOfPayment')}
+                {...register('payment.formOfPayment')}
               />
               <label htmlFor="debit">
                 <span>
@@ -208,7 +229,7 @@ export function Checkout() {
                 type="radio"
                 id="money"
                 value="money"
-                {...register('formOfPayment')}
+                {...register('payment.formOfPayment')}
               />
               <label htmlFor="money">
                 <span>
@@ -266,8 +287,10 @@ export function Checkout() {
                 </div>
               </TotalPayableContainer>
 
-              <ConfirmButton type="submit">Confirmar pedido</ConfirmButton>
-              <span>{formState.errors.formOfPayment?.message}</span>
+              <ConfirmButton type="submit" disabled={!isSubmitDisabled}>
+                Confirmar pedido
+              </ConfirmButton>
+              <span>{formState.errors.payment?.formOfPayment?.message}</span>
             </CoffeeListInCartContainer>
           </SelectedCoffeesContainer>
         </div>

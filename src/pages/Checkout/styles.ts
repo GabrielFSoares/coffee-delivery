@@ -193,6 +193,11 @@ export const ConfirmButton = styled.button`
   :hover {
     background-color: ${(props) => props.theme['yellow-dark']};
   }
+
+  :disabled {
+    cursor: not-allowed;
+    background-color: ${(props) => props.theme['yellow-light']};
+  }
 `
 
 export const EmptyCart = styled.div`

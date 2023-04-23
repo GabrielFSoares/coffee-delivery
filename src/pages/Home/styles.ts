@@ -40,21 +40,27 @@ export const CoffeeListContainer = styled.div`
       align-items: center;
       gap: 0.5rem;
 
-      button {
-        border: 1px solid ${(props) => props.theme.yellow};
-        border-radius: 100px;
+      input[type='checkbox'] {
+        display: none;
 
-        font-size: 0.625rem;
-        font-weight: 700;
-        color: ${(props) => props.theme['yellow-dark']};
-
-        padding: 0.375rem 0.75rem;
-
-        cursor: pointer;
-
-        :hover {
+        :checked + label,
+        + label:hover {
           background-color: ${(props) => props.theme.yellow};
           color: ${(props) => props.theme.white};
+        }
+
+        + label {
+          border: 1px solid ${(props) => props.theme.yellow};
+          border-radius: 100px;
+
+          font-size: 0.625rem;
+          font-weight: 700;
+          text-transform: uppercase;
+          color: ${(props) => props.theme['yellow-dark']};
+
+          padding: 0.375rem 0.75rem;
+
+          cursor: pointer;
         }
       }
     }

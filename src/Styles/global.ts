@@ -22,7 +22,7 @@ export const GlobalStyle = createGlobalStyle`
 		margin: 0 auto;
 		max-width: 1440px;
 
-		padding: 0 111px;
+		padding: 0 111px 160px;
 	}
 
 	body, input, textarea, button, p, span {

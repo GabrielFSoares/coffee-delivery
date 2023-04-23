@@ -54,6 +54,15 @@ export function CoffeeListInCartReducer(state: itemsInCartState, action: any) {
         draft.itemsInCart.splice(currentItemIndex, 1)
       })
     }
+
+    case ActionTypes.EMPTY_CART: {
+      const item: itemsInCartState = {
+        itemsInCart: [],
+        quantityOfItemsInCart: 0,
+      }
+
+      state = item
+    }
   }
 
   return state

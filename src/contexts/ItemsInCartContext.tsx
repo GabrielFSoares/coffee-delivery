@@ -3,6 +3,7 @@ import { CoffeeListInCartReducer } from '../reducers/coffeeListInCart/reducers'
 import {
   addItemInCartAction,
   addItemQuantityToCartAction,
+  emptyCartAction,
   removeItemInCartAction,
 } from '../reducers/coffeeListInCart/actions'
 
@@ -21,6 +22,7 @@ interface ItemsInCartProps {
     action: string,
   ) => void
   removeItemInCart: (coffeeId: string, quantity: number) => void
+  emptyCart: () => void
 }
 
 interface ItemsInCartContextProviderProps {
@@ -85,6 +87,10 @@ export function ItemsInCartContextProvider({
     dispach(removeItemInCartAction(cofeeId, quantity))
   }
 
+  function emptyCart() {
+    dispach(emptyCartAction())
+  }
+
   return (
     <ItemsInCartContext.Provider
       value={{
@@ -93,6 +99,7 @@ export function ItemsInCartContextProvider({
         itemsInCart,
         setItemQuantityInCart,
         removeItemInCart,
+        emptyCart,
       }}
     >
       {children}

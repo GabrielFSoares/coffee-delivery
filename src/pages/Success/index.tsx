@@ -1,8 +1,17 @@
 import { SuccessContainer } from './styles'
 import Illustration from '../../assets/Illustration.png'
 import { SummaryItems } from './components/summary-items'
+import { useContext, useEffect } from 'react'
+import { ItemsInCartContext } from '../../contexts/ItemsInCartContext'
 
 export function Success() {
+  const { emptyCart } = useContext(ItemsInCartContext)
+
+  useEffect(() => {
+    emptyCart()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   return (
     <SuccessContainer>
       <div>

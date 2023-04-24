@@ -40,7 +40,7 @@ export const CoffeeListContainer = styled.div`
       align-items: center;
       gap: 0.5rem;
 
-      input[type='checkbox'] {
+      input[type='radio'] {
         display: none;
 
         :checked + label,

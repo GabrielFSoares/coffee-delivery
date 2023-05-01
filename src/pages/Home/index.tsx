@@ -8,7 +8,7 @@ import imageHome from '../../assets/Imagem.png'
 
 import { ItemsIntro } from './components/intro-items'
 
-import React, { useContext, useEffect, useState } from 'react'
+import { useContext, useState } from 'react'
 import {
   CoffeeListItem,
   CoffeListItemProps,
@@ -17,30 +17,14 @@ import { CoffeeListContext } from '../../contexts/CoffeeListContext'
 
 export function Home() {
   const { coffeeList } = useContext(CoffeeListContext)
-
-  const [coffeeListFiltered, setCoffeeListFiltered] = useState(
-    Array<CoffeListItemProps>,
-  )
   const [filter, setFilter] = useState('')
 
-  useEffect(() => {
-    if (filter.length === 0) {
-      setCoffeeListFiltered(coffeeList)
-    } else {
-      const filteredCoffeeList = coffeeList.filter((item) => {
-        let correctFilter = false
-        Object.values(item.category).findIndex((category) => {
-          if (filter === category) correctFilter = true
-
-          return null
-        })
-
-        return correctFilter ? item : null
-      })
-
-      setCoffeeListFiltered(filteredCoffeeList)
-    }
-  }, [filter, coffeeList])
+  const filteredCoffeeList =
+    filter.length > 0
+      ? coffeeList.filter((item) =>
+          Object.values(item.category).includes(filter),
+        )
+      : coffeeList
 
   function handleFilterCoffeeList(type: string) {
     setFilter(type.toUpperCase())
@@ -127,7 +111,7 @@ export function Home() {
           </nav>
         </header>
         <CoffeeListItemContainer>
-          {coffeeListFiltered.map((item: CoffeListItemProps) => {
+          {filteredCoffeeList.map((item: CoffeListItemProps) => {
             return (
               <CoffeeListItem
                 key={item.id}

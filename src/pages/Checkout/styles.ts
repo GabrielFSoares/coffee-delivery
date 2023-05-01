@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const CheckoutContainer = styled.div`
+export const FormCheckoutContainer = styled.form`
   display: grid;
   grid-template-columns: 40rem 28rem;
   justify-content: space-between;
@@ -41,52 +41,41 @@ export const AddressContainer = styled(BaseContainer)`
     color: ${(props) => props.theme['yellow-dark']};
   }
 `
-export const FormConatiner = styled.div`
+
+export const AddressInputContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 1rem 0.75rem;
 
-  input {
-    background-color: ${(props) => props.theme['base-input']};
-    color: ${(props) => props.theme['base-text']};
-
-    border: 1px solid ${(props) => props.theme['base-button']};
-    border-radius: 4px;
-
-    font-size: 0.875rem;
-    padding: 0.75rem;
-
-    ::placeholder {
-      color: ${(props) => props.theme['base-label']};
-    }
-
-    :focus {
-      border: 1px solid ${(props) => props.theme['yellow-dark']};
-    }
-  }
-
-  input[type='number'],
-  input[placeholder='Bairro'] {
-    width: 12.5rem;
-  }
-
-  input[placeholder='Rua'] {
-    width: 100%;
-  }
-
-  input[placeholder='Complemento'] {
-    width: 21.75rem;
-  }
-
-  input[placeholder='Cidade'] {
-    width: 17.25rem;
-  }
-
   input[placeholder='UF'] {
-    width: 3.75rem;
     text-transform: uppercase;
   }
 `
+
+interface AddressInputProps {
+  variant: number
+}
+
+export const AddressInput = styled.input<AddressInputProps>`
+  background-color: ${(props) => props.theme['base-input']};
+  color: ${(props) => props.theme['base-text']};
+
+  border: 1px solid ${(props) => props.theme['base-button']};
+  border-radius: 4px;
+
+  font-size: 0.875rem;
+  width: ${(props) => props.variant}rem;
+  padding: 0.75rem;
+
+  &::placeholder {
+    color: ${(props) => props.theme['base-label']};
+  }
+
+  &:focus {
+    border: 1px solid ${(props) => props.theme['yellow-dark']};
+  }
+`
+
 export const PaymentContainer = styled(BaseContainer)`
   border-radius: 6px;
 
@@ -101,7 +90,7 @@ export const FormOfPaymentConatiner = styled.div`
   input[type='radio'] {
     display: none;
 
-    :checked + label {
+    &:checked + label {
       border: 1px solid ${(props) => props.theme.purple};
     }
 
@@ -121,7 +110,7 @@ export const FormOfPaymentConatiner = styled.div`
       display: flex;
       align-items: center;
 
-      :hover {
+      &:hover {
         color: ${(props) => props.theme['base-subtitle']};
         background-color: ${(props) => props.theme['base-hover']};
       }
@@ -190,11 +179,11 @@ export const ConfirmButton = styled.button`
   padding: 0.75rem;
   width: 100%;
 
-  :hover {
+  &:hover {
     background-color: ${(props) => props.theme['yellow-dark']};
   }
 
-  :disabled {
+  &:disabled {
     cursor: not-allowed;
     background-color: ${(props) => props.theme['yellow-light']};
   }

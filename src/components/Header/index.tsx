@@ -5,10 +5,17 @@ import { useContext, useEffect, useState } from 'react'
 import { ItemsInCartContext } from '../../contexts/ItemsInCartContext'
 import { NavLink } from 'react-router-dom'
 
+interface UfAndCity {
+  city: string
+  uf: string
+}
+
 export function Header() {
   const { quantityOfItemsInCart } = useContext(ItemsInCartContext)
-  const [city, setCity] = useState('')
-  const [uf, setUF] = useState('')
+  const [ufAndCity, setUfAndCity] = useState<UfAndCity>({
+    city: 'Porto Alegre',
+    uf: 'RS',
+  })
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(function (position) {
@@ -23,8 +30,7 @@ export function Header() {
           })
           const ufString = Object.values(data.address)[ISO3166] as string
 
-          setCity(data.address.city)
-          setUF(ufString.slice(-2))
+          setUfAndCity({ city: data.address.city, uf: ufString.slice(-2) })
         })
     })
   }, [])
@@ -38,7 +44,7 @@ export function Header() {
       <nav>
         <LocationContainer>
           <MapPin size={22} weight="fill" />
-          <span>{city && uf ? `${city}, ${uf}` : 'Porto Alegre, RS'}</span>
+          <span>{`${ufAndCity.city}, ${ufAndCity.uf}`}</span>
         </LocationContainer>
         <NavLink to="/checkout" title="Checkout">
           <button type="button">

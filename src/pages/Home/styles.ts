@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import * as RadioGroup from '@radix-ui/react-radio-group'
 
 export const HomeContainer = styled.div`
   display: flex;
@@ -34,36 +35,37 @@ export const CoffeeListContainer = styled.div`
       font-size: 2rem;
       color: ${(props) => props.theme['base-subtitle']};
     }
+  }
+`
 
-    nav {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
+export const FiltersMenu = styled(RadioGroup.Root)`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+`
 
-      input[type='radio'] {
-        display: none;
+export const FiltersMenuButton = styled(RadioGroup.Item)`
+  border: 1px solid ${(props) => props.theme.yellow};
+  border-radius: 100px;
 
-        :checked + label,
-        + label:hover {
-          background-color: ${(props) => props.theme.yellow};
-          color: ${(props) => props.theme.white};
-        }
+  font-size: 0.625rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: ${(props) => props.theme['yellow-dark']};
 
-        + label {
-          border: 1px solid ${(props) => props.theme.yellow};
-          border-radius: 100px;
+  padding: 0.375rem 0.75rem;
 
-          font-size: 0.625rem;
-          font-weight: 700;
-          text-transform: uppercase;
-          color: ${(props) => props.theme['yellow-dark']};
+  cursor: pointer;
 
-          padding: 0.375rem 0.75rem;
+  &[data-state='unchecked']:hover {
+    background: ${(props) => props.theme.yellow};
+    color: ${(props) => props.theme.white};
+    transition: background-color 0.2s, color 0.2s;
+  }
 
-          cursor: pointer;
-        }
-      }
-    }
+  &[data-state='checked'] {
+    background: ${(props) => props.theme.yellow};
+    color: ${(props) => props.theme.white};
   }
 `
 

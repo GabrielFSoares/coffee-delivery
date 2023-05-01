@@ -1,6 +1,8 @@
 import {
   CoffeeListContainer,
   CoffeeListItemContainer,
+  FiltersMenu,
+  FiltersMenuButton,
   HomeContainer,
   InfoContainer,
 } from './styles'
@@ -8,7 +10,7 @@ import imageHome from '../../assets/Imagem.png'
 
 import { ItemsIntro } from './components/intro-items'
 
-import { useContext, useState } from 'react'
+import { useContext, useState, MouseEvent } from 'react'
 import {
   CoffeeListItem,
   CoffeListItemProps,
@@ -26,8 +28,17 @@ export function Home() {
         )
       : coffeeList
 
-  function handleFilterCoffeeList(type: string) {
-    setFilter(type.toUpperCase())
+  function handleFilterCoffeeList(
+    type: string,
+    event: MouseEvent<HTMLButtonElement>,
+  ) {
+    if (event.currentTarget.getAttribute('data-state') === 'unchecked') {
+      setFilter(type.toUpperCase())
+      event.currentTarget.setAttribute('data-state', 'checked')
+    } else {
+      setFilter('')
+      event.currentTarget.setAttribute('data-state', 'unchecked')
+    }
   }
 
   return (
@@ -72,43 +83,38 @@ export function Home() {
       <CoffeeListContainer>
         <header>
           <h1>Nossos cafés</h1>
-          <nav>
-            <input
-              type="radio"
-              id="traditional"
-              name="filterCoffeeList"
-              onClick={() => handleFilterCoffeeList('TRADICIONAL')}
-            />
-            <label htmlFor="traditional">TRADICIONAL</label>
-            <input
-              type="radio"
-              id="special"
-              name="filterCoffeeList"
-              onClick={() => handleFilterCoffeeList('ESPECIAL')}
-            />
-            <label htmlFor="special">ESPECIAL</label>
-            <input
-              type="radio"
-              id="withMilk"
-              name="filterCoffeeList"
-              onClick={() => handleFilterCoffeeList('COM LEITE')}
-            />
-            <label htmlFor="withMilk">COM LEITE</label>
-            <input
-              type="radio"
-              id="alcoholic"
-              name="filterCoffeeList"
-              onClick={() => handleFilterCoffeeList('ALCOÓLICO')}
-            />
-            <label htmlFor="alcoholic">ALCOÓLICO</label>
-            <input
-              type="radio"
-              id="iced"
-              name="filterCoffeeList"
-              onClick={() => handleFilterCoffeeList('GELADO')}
-            />
-            <label htmlFor="iced">GELADO</label>
-          </nav>
+          <FiltersMenu>
+            <FiltersMenuButton
+              value="traditional"
+              onClick={(e) => handleFilterCoffeeList('TRADICIONAL', e)}
+            >
+              TRADICIONAL
+            </FiltersMenuButton>
+            <FiltersMenuButton
+              value="special"
+              onClick={(e) => handleFilterCoffeeList('ESPECIAL', e)}
+            >
+              ESPECIAL
+            </FiltersMenuButton>
+            <FiltersMenuButton
+              value="withMilk"
+              onClick={(e) => handleFilterCoffeeList('COM LEITE', e)}
+            >
+              COM LEITE
+            </FiltersMenuButton>
+            <FiltersMenuButton
+              value="alcoholic"
+              onClick={(e) => handleFilterCoffeeList('ALCOÓLICO', e)}
+            >
+              ALCOÓLICO
+            </FiltersMenuButton>
+            <FiltersMenuButton
+              value="iced"
+              onClick={(e) => handleFilterCoffeeList('GELADO', e)}
+            >
+              GELADO
+            </FiltersMenuButton>
+          </FiltersMenu>
         </header>
         <CoffeeListItemContainer>
           {filteredCoffeeList.map((item: CoffeListItemProps) => {

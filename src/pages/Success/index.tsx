@@ -70,7 +70,7 @@ export function Success() {
                       ? 'Cartão de Débito'
                       : order.payment.formOfPayment === 'credit'
                       ? 'Cartão de Crédito'
-                      : order.payment.formOfPayment === 'money'
+                      : order.payment.formOfPayment === 'cash'
                       ? 'Dinheiro'
                       : null}
                   </span>

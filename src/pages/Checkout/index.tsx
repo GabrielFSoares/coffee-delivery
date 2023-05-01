@@ -233,11 +233,11 @@ export function Checkout() {
             </label>
             <input
               type="radio"
-              id="money"
-              value="money"
+              id="cash"
+              value="cash"
               {...register('payment.formOfPayment')}
             />
-            <label htmlFor="money">
+            <label htmlFor="cash">
               <span>
                 <Money size={16} />
               </span>
